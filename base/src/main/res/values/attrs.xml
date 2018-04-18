@@ -1,0 +1,42 @@
+<resources>
+    <attr name="imageUrl" format="string" />
+    <attr name="noCrop" format="boolean" />
+    <attr name="imageRes" format="reference" />
+    <attr name="placeHolder" format="reference" />
+    <attr name="errorHolder" format="reference" />
+    <attr name="recyclerLayoutManager" format="reference" />
+    <attr name="recyclerAdapter" format="reference" />
+
+    <declare-styleable name="ImageView">
+        <attr name="imageUrl" />
+        <attr name="noCrop" />
+        <attr name="imageRes" />
+        <attr name="placeHolder" />
+        <attr name="errorHolder" />
+    </declare-styleable>
+
+    <declare-styleable name="RecyclerView">
+        <attr name="recyclerLayoutManager" />
+        <attr name="recyclerAdapter" />
+    </declare-styleable>
+
+    <declare-styleable name="ViewPager">
+        <attr name="fragmentPagerAdapter" format="reference"/>
+        <attr name="pagerAdapter" format="reference"/>
+        <attr name="currItemPosition" format="integer"/>
+        <attr name="smoothScroll" format="boolean"/>
+        <attr name="offscreenPageLimit" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="TitleBar">
+        <attr name="leftImageResource" format="reference"/>
+        <attr name="leftClickListener" format="reference"/>
+        <attr name="leftVisible" format="boolean"/>
+        <attr name="title" format="string"/>
+        <attr name="titleColor" format="integer"/>
+        <attr name="actionTextColor" format="integer"/>
+        <attr name="textAction" format="reference"/>
+        <attr name="action" format="reference"/>
+        <attr name="actions" format="reference"/>
+    </declare-styleable>
+</resources>
