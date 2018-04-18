@@ -7,7 +7,7 @@
     android:background="#eeeeee"
     android:orientation="vertical">
 
-    <cn.ecook.base.ui.TitleBar
+    <cn.ecook.base.widget.TitleBar
         android:id="@+id/tbBaseTitle"
         android:layout_width="match_parent"
         android:layout_height="48dp"

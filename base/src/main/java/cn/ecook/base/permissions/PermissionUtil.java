@@ -12,6 +12,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.ecook.base.widget.dialog.PermissionDialog;
 import io.reactivex.functions.Consumer;
 
 /**

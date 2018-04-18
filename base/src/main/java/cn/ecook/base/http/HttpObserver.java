@@ -32,7 +32,7 @@ public class HttpObserver implements Observer<Response<String>> {
 
     @Override
     public void onNext(@io.reactivex.annotations.NonNull Response<String> response) {
-        KLog.i(TAG, url);
+        KLog.e(TAG, url);
         KLog.json(TAG, response.body());
         HttpCallBackUtil.onNextCallBack(url, response, callBack);
     }

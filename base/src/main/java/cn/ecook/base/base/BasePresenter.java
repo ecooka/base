@@ -69,10 +69,10 @@ public abstract class BasePresenter {
      * @return
      */
     public WeakReference<Activity> getActivityWeakReference() {
-        if (context == null || !(context instanceof BaseActivity)) {
-            return null;
+        if (context instanceof BaseActivity) {
+            return ((BaseActivity) context).getActivityWeakReference();
         }
-        return ((BaseActivity) context).getActivityWeakReference();
+        return null;
     }
 
     public void toast(String msg){

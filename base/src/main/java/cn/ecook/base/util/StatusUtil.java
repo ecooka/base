@@ -21,10 +21,14 @@ public class StatusUtil {
     /**
      * 切换为loading状态
      */
-    public static void showLoading(MultipleStatusView multipleStatusView) {
+    public static void showLoading(MultipleStatusView multipleStatusView, int loadingLayoutRes) {
         try {
             if (multipleStatusView != null){
-                multipleStatusView.showLoading();
+                if (loadingLayoutRes == 0 ){
+                    multipleStatusView.showLoading();
+                } else {
+                    multipleStatusView.showLoading(loadingLayoutRes, DEFAULT_LAYOUT_PARAMS);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,11 +42,11 @@ public class StatusUtil {
         showContent(multipleStatusView);
     }
 
-    public static void dismissLoading(MultipleStatusView multipleStatusView, boolean showEmpty, int code) {
+    public static void dismissLoading(MultipleStatusView multipleStatusView, boolean showEmpty, int code, int emptyLayoutRes, int networkErrorLayoutRes) {
         if (HttpCode.EXCEPTION_NO_CONNECT == code || HttpCode.EXCEPTION_TIME_OUT == code){
-            showNoNetwork(multipleStatusView, 0);
+            showNoNetwork(multipleStatusView, networkErrorLayoutRes);
         } else if (showEmpty) {
-            showEmpty(multipleStatusView);
+            showEmpty(multipleStatusView, emptyLayoutRes);
         } else {
             showContent(multipleStatusView);
         }
@@ -65,10 +69,14 @@ public class StatusUtil {
     /**
      * 展示空数据布局
      */
-    public static void showEmpty(MultipleStatusView multipleStatusView) {
+    public static void showEmpty(MultipleStatusView multipleStatusView, int emptyLayoutRes) {
         try {
             if (multipleStatusView != null){
-                multipleStatusView.showEmpty();
+                if (emptyLayoutRes == 0){
+                    multipleStatusView.showEmpty();
+                } else {
+                    multipleStatusView.showEmpty(emptyLayoutRes, DEFAULT_LAYOUT_PARAMS);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,13 +86,13 @@ public class StatusUtil {
     /**
      * 展示网络异常布局
      */
-    private static void showNoNetwork(MultipleStatusView multipleStatusView, @LayoutRes int noNetWorkLayoutId) {
+    public static void showNoNetwork(MultipleStatusView multipleStatusView, @LayoutRes int networkErrorLayoutRes) {
         try {
             if (multipleStatusView != null) {
-                if (noNetWorkLayoutId == 0) {
+                if (networkErrorLayoutRes == 0) {
                     multipleStatusView.showNoNetwork();
                 } else {
-                    multipleStatusView.showNoNetwork(noNetWorkLayoutId, DEFAULT_LAYOUT_PARAMS);
+                    multipleStatusView.showNoNetwork(networkErrorLayoutRes, DEFAULT_LAYOUT_PARAMS);
                 }
             }
         } catch (Exception e) {

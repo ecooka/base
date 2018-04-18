@@ -5,7 +5,7 @@ import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.TextView;
 
-import cn.ecook.base.ui.TitleBar;
+import cn.ecook.base.widget.TitleBar;
 
 
 /**

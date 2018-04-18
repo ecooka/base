@@ -1,4 +1,4 @@
-package cn.ecook.base.permissions;
+package cn.ecook.base.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

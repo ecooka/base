@@ -31,4 +31,9 @@ public interface IStatusUi {
      * 直接切换为空视图状态
      */
     void showEmpty();
+
+    /**
+     * 直接切换为网络异常状态
+     */
+    void showNetworkError();
 }

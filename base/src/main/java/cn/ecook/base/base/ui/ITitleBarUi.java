@@ -1,7 +1,7 @@
 package cn.ecook.base.base.ui;
 
 import cn.ecook.base.listener.SingleClickListener;
-import cn.ecook.base.ui.TitleBar;
+import cn.ecook.base.widget.TitleBar;
 
 /**
  *

@@ -8,7 +8,7 @@ import com.classic.common.MultipleStatusView;
 import cn.ecook.base.R;
 import cn.ecook.base.base.BasePresenter;
 import cn.ecook.base.listener.SingleClickListener;
-import cn.ecook.base.ui.TitleBar;
+import cn.ecook.base.widget.TitleBar;
 import cn.ecook.base.util.StatusUtil;
 import cn.ecook.base.util.TitleBarUtil;
 
@@ -22,6 +22,9 @@ import cn.ecook.base.util.TitleBarUtil;
 public abstract class BaseStatusActivity<T extends BasePresenter> extends BaseActivity<T> implements ITitleBarUi, IStatusUi {
     protected TitleBar tbBaseTitle;
     protected MultipleStatusView msvBaseStatusView;
+    private int loadingLayoutRes = 0;
+    private int emptyLayoutRes = 0;
+    private int networkErrorLayoutRes = 0;
 
     @Override
     public final boolean titleAndStatus() {
@@ -46,7 +49,7 @@ public abstract class BaseStatusActivity<T extends BasePresenter> extends BaseAc
 
     @Override
     public void initStatusInterface() {
-        if (basePresenter != null){
+        if (basePresenter != null) {
             basePresenter.setTitleAndStatusInt(this, this);
         }
     }
@@ -78,7 +81,7 @@ public abstract class BaseStatusActivity<T extends BasePresenter> extends BaseAc
 
     @Override
     public void showLoading() {
-        StatusUtil.showLoading(msvBaseStatusView);
+        StatusUtil.showLoading(msvBaseStatusView, getLoadingLayoutRes());
     }
 
     @Override
@@ -88,11 +91,40 @@ public abstract class BaseStatusActivity<T extends BasePresenter> extends BaseAc
 
     @Override
     public void dismissLoading(boolean showEmpty, int httpCode) {
-        StatusUtil.dismissLoading(msvBaseStatusView, showEmpty, httpCode);
+        StatusUtil.dismissLoading(msvBaseStatusView, showEmpty, httpCode, getEmptyLayoutRes(), getNetworkErrorLayoutRes());
     }
 
     @Override
     public void showEmpty() {
-        StatusUtil.showEmpty(msvBaseStatusView);
+        StatusUtil.showEmpty(msvBaseStatusView, getEmptyLayoutRes());
+    }
+
+    @Override
+    public void showNetworkError() {
+        StatusUtil.showNoNetwork(msvBaseStatusView, getNetworkErrorLayoutRes());
+    }
+
+    /**
+     * 初始化多状态布局
+     * @param loadingLayoutRes ：loading 状态布局
+     * @param emptyLayoutRes ：empty 状态布局
+     * @param networkErrorLayoutRes ：网络异常状态布局
+     */
+    public void initStatusDefaultLayoutRes(int loadingLayoutRes, int emptyLayoutRes, int networkErrorLayoutRes) {
+        this.loadingLayoutRes = loadingLayoutRes;
+        this.emptyLayoutRes = emptyLayoutRes;
+        this.networkErrorLayoutRes = networkErrorLayoutRes;
+    }
+
+    public int getLoadingLayoutRes() {
+        return loadingLayoutRes;
+    }
+
+    public int getEmptyLayoutRes() {
+        return emptyLayoutRes;
+    }
+
+    public int getNetworkErrorLayoutRes() {
+        return networkErrorLayoutRes;
     }
 }

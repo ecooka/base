@@ -1,4 +1,4 @@
-package cn.ecook.base.ui;
+package cn.ecook.base.widget;
 
 import android.app.Activity;
 import android.content.Context;

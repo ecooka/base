@@ -7,13 +7,22 @@
 
     <View
         android:background="@drawable/shape_status_default_loading"
-        android:layout_width="62dp"
+        android:layout_width="80dp"
+        android:elevation="2dp"
         android:layout_centerInParent="true"
-        android:layout_height="62dp"/>
+        android:layout_height="80dp"/>
 
     <ProgressBar
-        android:layout_width="42dp"
-        android:layout_height="42dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:elevation="2dp"
         android:layout_centerInParent="true"
         android:indeterminateDrawable="@drawable/status_loading_progress" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:elevation="2dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/loading_ecook"/>
 </RelativeLayout>

@@ -58,7 +58,7 @@ public class HttpCallBackUtil {
      * @param callBack ： 回调
      */
     public static <T> void onErrorCallBack(String url, int code, String errorMsg, HttpCallBack<T> callBack) {
-        KLog.i(TAG, url + " :::::::::: code ::::::::::: " + code + " ::::::::::: errorMsg ::::::::::: " + errorMsg);
+        KLog.e(TAG, url + " :::::::::: code ::::::::::: " + code + " ::::::::::: errorMsg ::::::::::: " + errorMsg);
         if (callBack == null) {
             return;
         }

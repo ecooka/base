@@ -3,7 +3,7 @@ package cn.ecook.base.util;
 import android.view.View;
 
 import cn.ecook.base.listener.SingleClickListener;
-import cn.ecook.base.ui.TitleBar;
+import cn.ecook.base.widget.TitleBar;
 
 /**
  *
