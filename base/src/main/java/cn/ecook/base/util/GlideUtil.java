@@ -5,77 +5,57 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 import cn.ecook.base.R;
 
 /**
- *
  * @author 63062
  * @date 2017/10/21
  */
 
 public class GlideUtil {
+    private static final Map<String, String> fragmentImageList = new ConcurrentHashMap<>();
     private static final int[] RES = {R.drawable.default_dark_green, R.drawable.default_gray
             , R.drawable.default_light_green, R.drawable.default_pink};
 
-    /**
-     * 加载图片(一般用于网络图片)，默认缓存到本地
-     * @param context ：上下文
-     * @param uri ：图片地址
-     * @param imageView ：加载控件
-     */
     public static void display(Context context, Object uri, ImageView imageView) {
         display(context, uri, imageView, false);
     }
 
     /**
      * 加载图片(一般用于网络图片)
-     * @param context ：上下文
-     * @param uri ：图片地址
-     * @param imageView ：加载控件
+     *
+     * @param context       ：上下文
+     * @param uri           ：图片地址
+     * @param imageView     ：加载控件
      * @param skipDiskCache ：是否需要缓存在本地
      */
     public static void display(Context context, Object uri, ImageView imageView, boolean skipDiskCache) {
-        display(context, uri, imageView, createOption(skipDiskCache));
-    }
-
-    /**
-     * 加载图片(一般用于本地图片)，默认跳过内存
-     * @param context ：上下文
-     * @param uri ：图片地址
-     * @param imageView ：加载控件
-     */
-    public static void displayLocal(Context context, Object uri, ImageView imageView) {
-        displayLocal(context, uri, imageView, true);
-    }
-
-    /**
-     * 加载图片(一般用于本地图片)
-     * @param context ：上下文
-     * @param uri ：图片地址
-     * @param imageView ：加载控件
-     * @param skipMemoryCache ：是否跳过内存
-     */
-    public static void displayLocal(Context context, Object uri, ImageView imageView, boolean skipMemoryCache) {
-        display(context, uri, imageView, createLocalOption(skipMemoryCache));
+        display(context, uri, imageView, createOption(skipDiskCache), true);
     }
 
     /**
      * 加载图片
-     * @param context ：上下文
-     * @param uri ：图片地址
-     * @param imageView ：加载控件
+     *
+     * @param context        ：上下文
+     * @param uri            ：图片地址
+     * @param imageView      ：加载控件
      * @param requestOptions ：请求配置
      */
-    public static void display(Context context, Object uri, ImageView imageView, RequestOptions requestOptions) {
+    public static void display(Context context, Object uri, ImageView imageView, RequestOptions requestOptions, boolean transition) {
         if (canDisplay(context, imageView)) {
             Glide.with(context)
                     .load(uri)
                     .apply(requestOptions == null ? createOption(false) : requestOptions)
+                    .transition(transition ? new DrawableTransitionOptions().crossFade() : new DrawableTransitionOptions().dontTransition())
                     .into(imageView);
         }
     }
@@ -88,7 +68,7 @@ public class GlideUtil {
     }
 
     /**
-     * @param context ：上下文
+     * @param context   ：上下文
      * @param imageView ：图片控件
      * @return ：是否满足加载图片的条件
      */
@@ -102,20 +82,20 @@ public class GlideUtil {
         return true;
     }
 
-    private static RequestOptions createOption(boolean skipDiskCache) {
+    /**
+     * 创建默认的配置信息
+     * @param skipDiskCache ：是否跳过sd卡缓存
+     * @return
+     */
+    public static RequestOptions createOption(boolean skipDiskCache) {
         int randomRes = getRandomRes();
-        return new RequestOptions()
-                .centerCrop()
+        RequestOptions options = new RequestOptions()
                 .dontAnimate()
+                .priority(Priority.NORMAL)
+                .skipMemoryCache(true)
                 .placeholder(randomRes)
                 .error(randomRes)
-                .skipMemoryCache(true)
                 .diskCacheStrategy(skipDiskCache ? DiskCacheStrategy.NONE : DiskCacheStrategy.RESOURCE);
-    }
-
-    private static RequestOptions createLocalOption(boolean skipMemoryCache) {
-        return new RequestOptions()
-                .dontAnimate()
-                .skipMemoryCache(skipMemoryCache);
+        return options;
     }
 }

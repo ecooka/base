@@ -52,7 +52,7 @@ public final class ImageViewBindingAdapter {
         if (imageView == null || opt == null) {
             return;
         }
-        GlideUtil.display(imageView.getContext(), object, imageView, opt);
+        GlideUtil.display(imageView.getContext(), object, imageView, opt,true);
     }
 }
 
