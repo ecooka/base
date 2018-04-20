@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import cn.ecook.base.R;
 
 /**
- * @author mcjs001
+ * @author ：Bob
  */
 public class TitleBar extends ViewGroup implements View.OnClickListener {
     private static final int DEFAULT_MAIN_TEXT_SIZE = 18;

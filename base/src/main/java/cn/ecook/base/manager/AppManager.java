@@ -7,7 +7,7 @@ import java.util.Stack;
 
 /**
  * App Activity 管理类
- * @author mcjs001
+ * @author ciba
  */
 public class AppManager {
 

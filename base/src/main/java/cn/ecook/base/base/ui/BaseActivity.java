@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.socks.library.KLog;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -25,17 +27,19 @@ import cn.ecook.base.util.ToastUtil;
 /**
  * Activity基类
  *
- * @author 63062
+ * @author ciba
  * @date 2018/4/2
  */
 
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements IBaseUi<T>{
+    private static final String TAG = "BaseActivity";
     private WeakReference<Activity> activityWeakReference;
     protected T basePresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        KLog.e(TAG, "This activity is ... " + getClass().getSimpleName());
         // 软引用Activity上下文
         activityWeakReference = new WeakReference<Activity>(this);
         // 添加到App管理中

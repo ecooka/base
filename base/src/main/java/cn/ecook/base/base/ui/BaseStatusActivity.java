@@ -6,6 +6,7 @@ import android.widget.FrameLayout;
 import com.classic.common.MultipleStatusView;
 
 import cn.ecook.base.R;
+import cn.ecook.base.base.BaseConfig;
 import cn.ecook.base.base.BasePresenter;
 import cn.ecook.base.listener.SingleClickListener;
 import cn.ecook.base.widget.TitleBar;
@@ -15,16 +16,16 @@ import cn.ecook.base.util.TitleBarUtil;
 /**
  * 有多个状态的Activity基类
  *
- * @author 63062
+ * @author ciba
  * @date 2018/4/4
  */
 
 public abstract class BaseStatusActivity<T extends BasePresenter> extends BaseActivity<T> implements ITitleBarUi, IStatusUi {
     protected TitleBar tbBaseTitle;
     protected MultipleStatusView msvBaseStatusView;
-    private int loadingLayoutRes = 0;
-    private int emptyLayoutRes = 0;
-    private int networkErrorLayoutRes = 0;
+    private int loadingLayoutRes = BaseConfig.DEFAULT_LOADING_STATUS_RES;
+    private int emptyLayoutRes = BaseConfig.DEFAULT_EMPTY_STATUS_RES;
+    private int networkErrorLayoutRes = BaseConfig.DEFAULT_NETWORK_ERROR_STATUS_RES;
 
     @Override
     public final boolean titleAndStatus() {

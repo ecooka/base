@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 
 /**
- * @author mcjs001
+ * @author ciba
  */
 public class RecyclerViewBindingAdapter {
     @BindingAdapter(value = {"recyclerLayoutManager", "recyclerAdapter"}, requireAll = false)

@@ -4,7 +4,7 @@ import android.Manifest;
 import android.text.TextUtils;
 
 /**
- * @author mcjs001
+ * @author ciba
  */
 public class PermissionNameUtil {
     private PermissionNameUtil(){}

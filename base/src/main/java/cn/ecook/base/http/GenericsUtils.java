@@ -5,7 +5,7 @@ import java.lang.reflect.Type;
 
 /**
  *
- * @author 63062
+ * @author ciba
  * @date 2018/3/29
  */
 public class GenericsUtils {

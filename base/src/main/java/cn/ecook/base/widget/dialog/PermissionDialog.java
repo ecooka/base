@@ -17,7 +17,7 @@ import cn.ecook.base.R;
 /**
  * 权限申请失败弹框
  *
- * @author 63062
+ * @author ciba
  * @date 2017/12/4
  */
 

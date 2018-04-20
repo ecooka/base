@@ -12,6 +12,7 @@ import cn.ecook.base.widget.dialog.EcookLoadingDialog;
  */
 
 public abstract class LoadingHttpCallBack<T> extends HttpCallBack<T> {
+    private final boolean cancelable;
     private WeakReference<Activity> activityWeakReference;
     private final int loadingLayoutRes;
     private EcookLoadingDialog loadingDialog;
@@ -22,17 +23,23 @@ public abstract class LoadingHttpCallBack<T> extends HttpCallBack<T> {
      * @param context : 上下文(最后不要上传Application级别的上下文)，用于获取hashCode，addDisposable和clearDisposable使用
      */
 
-    public LoadingHttpCallBack(Context context) {
+    public LoadingHttpCallBack(Activity context) {
         this(context, 0,false);
     }
 
-    public LoadingHttpCallBack(Context context, int loadingLayoutRes, boolean cancelable) {
+    public LoadingHttpCallBack(Activity context, int loadingLayoutRes, boolean cancelable) {
         super(context);
         this.loadingLayoutRes = loadingLayoutRes;
-        if (context instanceof Activity) {
-            activityWeakReference = new WeakReference<>((Activity) context);
-            showLoading(cancelable);
+        this.cancelable = cancelable;
+        if (context != null) {
+            activityWeakReference = new WeakReference<>(context);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        showLoading(cancelable);
     }
 
     @Override

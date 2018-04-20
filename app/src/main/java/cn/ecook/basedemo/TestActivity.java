@@ -7,8 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,9 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by mcjs001 on 2018/4/19.
+ *
+ * @author mcjs001
+ * @date 2018/4/19
  */
 
 public class TestActivity extends BaseStatusActivity {
@@ -48,7 +48,6 @@ public class TestActivity extends BaseStatusActivity {
 
     @Override
     public void initData() {
-        showLoading();
         getLocalImages();
     }
 
@@ -58,6 +57,7 @@ public class TestActivity extends BaseStatusActivity {
     }
 
     private void getLocalImages() {
+        showLoading();
         Observable.create(new ObservableOnSubscribe<List<String>>() {
             @Override
             public void subscribe(ObservableEmitter<List<String>> emitter) throws Exception {

@@ -11,7 +11,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * @author mcjs001
+ * @author ciba
  */
 public class HttpObserver implements Observer<Response<String>> {
     private static final String TAG = "HTTP_OBSERVER";

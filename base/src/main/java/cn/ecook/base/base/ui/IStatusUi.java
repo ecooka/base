@@ -1,8 +1,8 @@
 package cn.ecook.base.base.ui;
 
 /**
- *
- * @author 63062
+ * 多状态切换接口
+ * @author ciba
  * @date 2018/4/3
  */
 

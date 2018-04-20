@@ -4,8 +4,8 @@ import cn.ecook.base.listener.SingleClickListener;
 import cn.ecook.base.widget.TitleBar;
 
 /**
- *
- * @author 63062
+ * {@link TitleBar}操作接口
+ * @author ciba
  * @date 2018/4/3
  */
 

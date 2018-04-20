@@ -17,7 +17,7 @@ import cn.ecook.base.R;
 /**
  * 网上厨房loading弹框
  *
- * @author 63062
+ * @author ciba
  * @date 2017/12/4
  */
 
@@ -26,6 +26,7 @@ public class EcookLoadingDialog extends Dialog {
     public EcookLoadingDialog(@NonNull Context context) {
         this(context, 0);
     }
+
     public EcookLoadingDialog(@NonNull Context context, int layoutRes) {
         super(context, R.style.common_dialog);
         View view = View.inflate(context, layoutRes == 0 ? R.layout.status_default_loading : layoutRes, null);

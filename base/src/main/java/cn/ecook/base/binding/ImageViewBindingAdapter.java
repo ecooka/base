@@ -11,7 +11,7 @@ import cn.ecook.base.util.GlideUtil;
 
 /**
  *
- * @author mcjs001
+ * @author ciba
  */
 public final class ImageViewBindingAdapter {
     private static RequestOptions options = new RequestOptions()

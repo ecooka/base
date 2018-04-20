@@ -4,7 +4,7 @@ import com.lzy.okgo.model.Response;
 import com.socks.library.KLog;
 
 /**
- * @author mcjs001
+ * @author ciba
  */
 public class HttpCallBackUtil {
     private static final String TAG = "HTTP_CALL_BACK";
@@ -24,7 +24,7 @@ public class HttpCallBackUtil {
             return;
         }
         String body = response.body();
-        if (response.code() != CODE200) {
+        if (CODE200 != response.code()) {
             onErrorCallBack(url, response.code(), "服务器异常", callBack);
             return;
         }

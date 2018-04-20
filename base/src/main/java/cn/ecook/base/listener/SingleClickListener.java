@@ -5,7 +5,7 @@ import android.view.View;
 /**
  * 禁止一秒内的连续点击
  *
- * @author 63062
+ * @author ciba
  * @date 2018/3/1
  */
 

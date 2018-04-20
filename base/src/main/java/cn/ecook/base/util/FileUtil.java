@@ -21,7 +21,7 @@ import java.io.InputStream;
 /**
  * 文件操作工具包
  *
- * @author mcjs001
+ * @author ciba
  */
 public class FileUtil {
     /**

@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import cn.ecook.base.R;
 
 /**
- * @author 63062
+ * @author ciba
  * @date 2017/10/21
  */
 
@@ -26,8 +26,16 @@ public class GlideUtil {
     private static final int[] RES = {R.drawable.default_dark_green, R.drawable.default_gray
             , R.drawable.default_light_green, R.drawable.default_pink};
 
+    public static void displayLow(Context context, Object uri, ImageView imageView) {
+        display(context, uri, imageView, false, Priority.LOW);
+    }
+
     public static void display(Context context, Object uri, ImageView imageView) {
-        display(context, uri, imageView, false);
+        display(context, uri, imageView, false, Priority.NORMAL);
+    }
+
+    public static void displayHigh(Context context, Object uri, ImageView imageView) {
+        display(context, uri, imageView, false, Priority.HIGH);
     }
 
     /**
@@ -38,8 +46,8 @@ public class GlideUtil {
      * @param imageView     ：加载控件
      * @param skipDiskCache ：是否需要缓存在本地
      */
-    public static void display(Context context, Object uri, ImageView imageView, boolean skipDiskCache) {
-        display(context, uri, imageView, createOption(skipDiskCache), true);
+    public static void display(Context context, Object uri, ImageView imageView, boolean skipDiskCache, Priority priority) {
+        display(context, uri, imageView, createOption(skipDiskCache, priority), true);
     }
 
     /**
@@ -54,7 +62,7 @@ public class GlideUtil {
         if (canDisplay(context, imageView)) {
             Glide.with(context)
                     .load(uri)
-                    .apply(requestOptions == null ? createOption(false) : requestOptions)
+                    .apply(requestOptions == null ? createOption(false, Priority.NORMAL) : requestOptions)
                     .transition(transition ? new DrawableTransitionOptions().crossFade() : new DrawableTransitionOptions().dontTransition())
                     .into(imageView);
         }
@@ -84,18 +92,35 @@ public class GlideUtil {
 
     /**
      * 创建默认的配置信息
+     *
      * @param skipDiskCache ：是否跳过sd卡缓存
      * @return
      */
-    public static RequestOptions createOption(boolean skipDiskCache) {
+    public static RequestOptions createOption(boolean skipDiskCache, Priority priority) {
         int randomRes = getRandomRes();
         RequestOptions options = new RequestOptions()
                 .dontAnimate()
-                .priority(Priority.NORMAL)
+                .priority(priority == null ? Priority.NORMAL : priority)
                 .skipMemoryCache(true)
                 .placeholder(randomRes)
                 .error(randomRes)
                 .diskCacheStrategy(skipDiskCache ? DiskCacheStrategy.NONE : DiskCacheStrategy.RESOURCE);
         return options;
+    }
+
+    /**
+     * 暂停或开始图片加载
+     * @param context
+     * @param resume
+     */
+    public static void resumeOrPauseRequest(Context context, boolean resume) {
+        if (context != null){
+            return;
+        }
+        if (resume){
+            Glide.with(context).resumeRequests();
+        } else {
+            Glide.with(context).pauseRequests();
+        }
     }
 }

@@ -16,7 +16,7 @@ import cn.ecook.base.util.ToastUtil;
 /**
  * 业务基类
  *
- * @author 63062
+ * @author ciba
  * @date 2018/4/2
  */
 

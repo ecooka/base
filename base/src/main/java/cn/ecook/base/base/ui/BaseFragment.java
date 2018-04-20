@@ -18,7 +18,7 @@ import cn.ecook.base.util.ToastUtil;
 /**
  * BaseFragment
  *
- * @author 63062
+ * @author ciba
  * @date 2017/12/18
  */
 

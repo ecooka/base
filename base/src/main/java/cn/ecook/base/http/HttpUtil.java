@@ -30,7 +30,7 @@ import okhttp3.OkHttpClient;
 /**
  * 封装OkGo的网络访问帮助类，推出界面时建议调用clearDisposable()
  *
- * @author 63062
+ * @author ciba
  * @date 2017/9/25
  */
 
@@ -89,6 +89,9 @@ public class HttpUtil {
     }
 
     private static <T> void dealRequest(Request request, Map<String, String> map, String json, HttpCallBack<T> callBack) {
+        if (callBack != null) {
+            callBack.onStart();
+        }
         if (map == null) {
             map = new HashMap<>();
         }

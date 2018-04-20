@@ -12,7 +12,9 @@ import java.util.List;
 import cn.ecook.base.util.GlideUtil;
 
 /**
- * Created by mcjs001 on 2018/4/19.
+ *
+ * @author mcjs001
+ * @date 2018/4/19
  */
 
 public class ImageAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
@@ -26,6 +28,6 @@ public class ImageAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder holder, String item) {
         ImageView ivImage = holder.getView(R.id.ivImage);
-        GlideUtil.display(ivImage.getContext(), item, ivImage);
+        GlideUtil.display(mContext, item, ivImage);
     }
 }
