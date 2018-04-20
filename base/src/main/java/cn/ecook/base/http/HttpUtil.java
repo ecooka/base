@@ -42,6 +42,9 @@ public class HttpUtil {
     }
 
     public static void init(Application application, HttpHeaders headers) {
+        if (application == null) {
+            return;
+        }
         HttpParams params = new HttpParams();
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         //全局的读取超时时间

@@ -9,7 +9,9 @@ import cn.ecook.base.base.BasePresenter;
 import cn.ecook.base.base.ui.BaseFragment;
 import cn.ecook.base.http.HttpUtil;
 import cn.ecook.base.http.LoadingHttpCallBack;
+import cn.ecook.base.listener.SingleClickListener;
 import cn.ecook.base.util.GlideUtil;
+import cn.ecook.base.widget.dialog.CameraPhotoDialog;
 
 /**
  *
@@ -41,7 +43,13 @@ public class ImageFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-
+        ivImage.setOnClickListener(new SingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                CameraPhotoDialog dialog = new CameraPhotoDialog(activity, "");
+                dialog.show();
+            }
+        });
     }
 
     @Override

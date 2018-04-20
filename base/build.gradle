@@ -42,7 +42,7 @@ publish {
     userOrg = 'ecookad'               // bintray注册的用户名
     groupId = 'cn.ecook'
     artifactId = 'base'                // bintray创建的package
-    publishVersion = '0.0.3'
+    publishVersion = '0.0.4'
 }
 
 dependencies {

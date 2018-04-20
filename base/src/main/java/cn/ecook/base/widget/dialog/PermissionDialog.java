@@ -29,7 +29,7 @@ public class PermissionDialog extends Dialog {
 
     public PermissionDialog(@NonNull Context context) {
         super(context, R.style.common_dialog);
-        View view = View.inflate(context, R.layout.ui_dialog_design_alert, null);
+        View view = View.inflate(context, R.layout.dialog_default_permission, null);
         tvTitle = view.findViewById(R.id.tvTitle);
         tvContent = view.findViewById(R.id.tvContent);
         tvCancel = view.findViewById(R.id.tvCancel);

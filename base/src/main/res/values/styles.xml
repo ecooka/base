@@ -12,4 +12,12 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+
+    <style name="fromBottomToTopAnimStyle">
+        <item name="android:windowEnterAnimation">@anim/from_bottom_to_top</item>
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowExitAnimation">@anim/from_top_to_bottom</item>
+        <!-- 指定消失的动画xml -->
+    </style>
+
 </resources>
