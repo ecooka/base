@@ -21,7 +21,7 @@ public class ImageFragment extends BaseFragment {
     private static final String IMAGE_URL = "IMAGE_URL";
     private ImageView ivImage;
 
-    public static ImageFragment instace(String imageUrl) {
+    public static ImageFragment instance(String imageUrl) {
         ImageFragment fragment = new ImageFragment();
         Bundle bundle = new Bundle();
         bundle.putString(IMAGE_URL, imageUrl);

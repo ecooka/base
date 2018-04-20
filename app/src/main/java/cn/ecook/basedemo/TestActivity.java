@@ -26,6 +26,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class TestActivity extends BaseStatusActivity {
+    private RecyclerView recyclerView;
     @Override
     public int contentView() {
         return R.layout.activity_test;
@@ -33,7 +34,7 @@ public class TestActivity extends BaseStatusActivity {
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
-
+        recyclerView = findViewById(R.id.recyclerView);
     }
 
     @Override
@@ -54,6 +55,8 @@ public class TestActivity extends BaseStatusActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        recyclerView.getRecycledViewPool().clear();
+        recyclerView = null;
     }
 
     private void getLocalImages() {
@@ -76,7 +79,6 @@ public class TestActivity extends BaseStatusActivity {
                     @Override
                     public void accept(List<String> strings) throws Exception {
                         dismissLoading();
-                        RecyclerView recyclerView = findViewById(R.id.recyclerView);
                         recyclerView.setLayoutManager(new LinearLayoutManager(TestActivity.this));
                         recyclerView.setAdapter(new ImageAdapter(strings, TestActivity.this));
                     }

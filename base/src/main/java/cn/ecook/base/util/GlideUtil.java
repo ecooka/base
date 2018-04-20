@@ -23,8 +23,8 @@ import cn.ecook.base.R;
 
 public class GlideUtil {
     private static final Map<String, String> fragmentImageList = new ConcurrentHashMap<>();
-    private static final int[] RES = {R.drawable.default_dark_green, R.drawable.default_gray
-            , R.drawable.default_light_green, R.drawable.default_pink};
+    private static final int[] RES = {R.color.default_green, R.color.default_pink
+            , R.color.default_purple, R.color.default_red};
 
     public static void displayLow(Context context, Object uri, ImageView imageView) {
         display(context, uri, imageView, false, Priority.LOW);
@@ -101,7 +101,6 @@ public class GlideUtil {
         RequestOptions options = new RequestOptions()
                 .dontAnimate()
                 .priority(priority == null ? Priority.NORMAL : priority)
-                .skipMemoryCache(true)
                 .placeholder(randomRes)
                 .error(randomRes)
                 .diskCacheStrategy(skipDiskCache ? DiskCacheStrategy.NONE : DiskCacheStrategy.RESOURCE);

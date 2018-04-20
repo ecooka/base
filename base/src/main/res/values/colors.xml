@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="default_green">#6fa8b8</color>
+    <color name="default_pink">#ecd6da</color>
+    <color name="default_purple">#b0cce5</color>
+    <color name="default_red">#e5a9a0</color>
+</resources>
