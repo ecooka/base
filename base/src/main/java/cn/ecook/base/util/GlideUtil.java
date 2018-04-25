@@ -2,14 +2,18 @@ package cn.ecook.base.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.io.File;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,16 +42,12 @@ public class GlideUtil {
         display(context, uri, imageView, false, Priority.HIGH);
     }
 
-    /**
-     * 加载图片(一般用于网络图片)
-     *
-     * @param context       ：上下文
-     * @param uri           ：图片地址
-     * @param imageView     ：加载控件
-     * @param skipDiskCache ：是否需要缓存在本地
-     */
     public static void display(Context context, Object uri, ImageView imageView, boolean skipDiskCache, Priority priority) {
         display(context, uri, imageView, createOption(skipDiskCache, priority), true);
+    }
+
+    public static void display(Context context, Object uri, ImageView imageView, RequestOptions requestOptions, boolean transition) {
+        display(context, uri, imageView, requestOptions, transition, null);
     }
 
     /**
@@ -58,12 +58,14 @@ public class GlideUtil {
      * @param imageView      ：加载控件
      * @param requestOptions ：请求配置
      */
-    public static void display(Context context, Object uri, ImageView imageView, RequestOptions requestOptions, boolean transition) {
+    public static void display(Context context, Object uri, ImageView imageView, RequestOptions requestOptions
+            , boolean transition, RequestListener<Drawable> listener) {
         if (canDisplay(context, imageView)) {
             Glide.with(context)
                     .load(uri)
                     .apply(requestOptions == null ? createOption(false, Priority.NORMAL) : requestOptions)
                     .transition(transition ? new DrawableTransitionOptions().crossFade() : new DrawableTransitionOptions().dontTransition())
+                    .listener(listener)
                     .into(imageView);
         }
     }
@@ -109,14 +111,15 @@ public class GlideUtil {
 
     /**
      * 暂停或开始图片加载
+     *
      * @param context
      * @param resume
      */
     public static void resumeOrPauseRequest(Context context, boolean resume) {
-        if (context != null){
+        if (context != null) {
             return;
         }
-        if (resume){
+        if (resume) {
             Glide.with(context).resumeRequests();
         } else {
             Glide.with(context).pauseRequests();

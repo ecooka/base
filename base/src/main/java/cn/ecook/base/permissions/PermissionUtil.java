@@ -99,7 +99,8 @@ public class PermissionUtil {
 
     public static void showSettingDialog(final Activity activity, String permission) {
         final PermissionDialog dialog = new PermissionDialog(activity);
-        dialog.setTitle("需要手动申请【" + PermissionNameUtil.getPermissionName(permission) + "】权限");
+        dialog.setTitle("权限申请");
+        dialog.setContent("需要手动申请【" + PermissionNameUtil.getPermissionName(permission) + "】权限");
         dialog.setDefiniteClick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +114,7 @@ public class PermissionUtil {
     /**
      * 跳转到权限设置界面
      */
-    private static void toSetting(Activity activity) {
+    public static void toSetting(Activity activity) {
         Intent intent = new Intent();
         if (Build.VERSION.SDK_INT >= 9) {
             intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");

@@ -1,14 +1,13 @@
 package cn.ecook.base.base.ui;
 
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
-
-import com.classic.common.MultipleStatusView;
 
 import cn.ecook.base.R;
 import cn.ecook.base.base.BaseConfig;
 import cn.ecook.base.base.BasePresenter;
 import cn.ecook.base.listener.SingleClickListener;
+import cn.ecook.base.widget.MultipleStatusView;
 import cn.ecook.base.widget.TitleBar;
 import cn.ecook.base.util.StatusUtil;
 import cn.ecook.base.util.TitleBarUtil;
@@ -34,18 +33,17 @@ public abstract class BaseStatusActivity<T extends BasePresenter> extends BaseAc
 
     @Override
     public void initStatusView(View contentView) {
-        // 初始化多状态布局
-        tbBaseTitle = findViewById(R.id.tbBaseTitle);
-        msvBaseStatusView = findViewById(R.id.msvBaseStatusView);
+        msvBaseStatusView = (MultipleStatusView) LayoutInflater.from(this).inflate(R.layout.activity_base_status, null, false);
         msvBaseStatusView.setOnRetryClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 reloadData();
             }
         });
-
-        FrameLayout flBaseContent = findViewById(R.id.flBaseContent);
-        flBaseContent.addView(contentView);
+        msvBaseStatusView.addView(contentView, 0, msvBaseStatusView.DEFAULT_LAYOUT_PARAMS);
+        tbBaseTitle = (TitleBar) msvBaseStatusView.getHeaderView();
+        // 初始化多状态布局
+        setContentView(msvBaseStatusView);
     }
 
     @Override
@@ -107,8 +105,9 @@ public abstract class BaseStatusActivity<T extends BasePresenter> extends BaseAc
 
     /**
      * 初始化多状态布局
-     * @param loadingLayoutRes ：loading 状态布局
-     * @param emptyLayoutRes ：empty 状态布局
+     *
+     * @param loadingLayoutRes      ：loading 状态布局
+     * @param emptyLayoutRes        ：empty 状态布局
      * @param networkErrorLayoutRes ：网络异常状态布局
      */
     public void initStatusDefaultLayoutRes(int loadingLayoutRes, int emptyLayoutRes, int networkErrorLayoutRes) {

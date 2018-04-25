@@ -2,25 +2,19 @@ package cn.ecook.base.base.ui;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
-
-import com.classic.common.MultipleStatusView;
 
 import cn.ecook.base.R;
 import cn.ecook.base.base.BaseConfig;
 import cn.ecook.base.base.BasePresenter;
-import cn.ecook.base.listener.SingleClickListener;
-import cn.ecook.base.widget.TitleBar;
+import cn.ecook.base.widget.MultipleStatusView;
 import cn.ecook.base.util.StatusUtil;
-import cn.ecook.base.util.TitleBarUtil;
 
 /**
  * @author ciba
  * @date 2018/4/4
  */
 
-public abstract class BaseStatusFragment<T extends BasePresenter> extends BaseFragment<T> implements ITitleBarUi, IStatusUi {
-    protected TitleBar tbBaseTitle;
+public abstract class BaseStatusFragment<T extends BasePresenter> extends BaseFragment<T> implements IStatusUi {
     protected MultipleStatusView msvBaseStatusView;
     private int loadingLayoutRes = BaseConfig.DEFAULT_LOADING_STATUS_RES;
     private int emptyLayoutRes = BaseConfig.DEFAULT_EMPTY_STATUS_RES;
@@ -33,50 +27,22 @@ public abstract class BaseStatusFragment<T extends BasePresenter> extends BaseFr
 
     @Override
     public View initStatusView(View contentView) {
-        View statusView = LayoutInflater.from(activity).inflate(R.layout.fragment_base_status, null);
-        tbBaseTitle = statusView.findViewById(R.id.tbBaseTitle);
-        msvBaseStatusView = statusView.findViewById(R.id.msvBaseStatusView);
+        msvBaseStatusView = (MultipleStatusView) LayoutInflater.from(activity).inflate(R.layout.fragment_base_status, null, false);
         msvBaseStatusView.setOnRetryClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 reloadData();
             }
         });
-        FrameLayout flBaseContent = statusView.findViewById(R.id.flBaseContent);
-        flBaseContent.addView(contentView);
-        return statusView;
+        msvBaseStatusView.addView(contentView, 0, msvBaseStatusView.DEFAULT_LAYOUT_PARAMS);
+        return msvBaseStatusView;
     }
 
     @Override
     public void initStatusInterface() {
         if (basePresenter != null) {
-            basePresenter.setTitleAndStatusInt(this, this);
+            basePresenter.setTitleAndStatusInt(null, this);
         }
-    }
-
-    @Override
-    public void setBaseTitleVisible(boolean visible) {
-        TitleBarUtil.setTitleVisible(tbBaseTitle, visible);
-    }
-
-    @Override
-    public void setBaseTitle(String title) {
-        TitleBarUtil.setTitle(tbBaseTitle, title);
-    }
-
-    @Override
-    public void setLeftListener(SingleClickListener listener) {
-        TitleBarUtil.setLeftListener(tbBaseTitle, listener);
-    }
-
-    @Override
-    public void setLeftVisible(boolean visible) {
-        TitleBarUtil.setLeftVisible(tbBaseTitle, visible);
-    }
-
-    @Override
-    public void addRightActions(TitleBar.ActionList actionList) {
-        TitleBarUtil.addRightActions(tbBaseTitle, actionList);
     }
 
     @Override

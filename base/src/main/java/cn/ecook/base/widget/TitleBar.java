@@ -74,7 +74,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 if (getContext() instanceof Activity){
-                    ((Activity) getContext()).finish();
+                    ((Activity) getContext()).onBackPressed();
                 }
             }
         });

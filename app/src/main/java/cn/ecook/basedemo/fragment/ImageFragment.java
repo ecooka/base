@@ -1,4 +1,4 @@
-package cn.ecook.basedemo;
+package cn.ecook.basedemo.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +12,7 @@ import cn.ecook.base.http.LoadingHttpCallBack;
 import cn.ecook.base.listener.SingleClickListener;
 import cn.ecook.base.util.GlideUtil;
 import cn.ecook.base.widget.dialog.CameraPhotoDialog;
+import cn.ecook.basedemo.R;
 
 /**
  *

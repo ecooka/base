@@ -1,5 +1,6 @@
 package cn.ecook.base.http;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
@@ -129,7 +130,7 @@ public class HttpUtil {
      * @param context
      */
     public static void clearDisposable(Context context) {
-        if (context == null || compositeDisposableMap == null) {
+        if (context == null || !(context instanceof Activity) || compositeDisposableMap == null) {
             return;
         }
         String hashTag = context.hashCode() + "";

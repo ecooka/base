@@ -1,15 +1,20 @@
 package cn.ecook.base.util;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.util.Log;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.FileCallback;
+import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
+import com.socks.library.KLog;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -18,12 +23,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import cn.ecook.base.permissions.PermissionUtil;
+
 /**
  * 文件操作工具包
  *
  * @author ciba
  */
 public class FileUtil {
+    private static final String TAG = "FileUtil";
+
     /**
      * 写文本文件 在Android系统中，文件保存在 /data/data/PACKAGE_NAME/files 目录下
      *
@@ -293,8 +302,74 @@ public class FileUtil {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
     }
 
-    public static void simpleDownloadFile(String url, FileCallback callback) {
-        GetRequest<File> fileGetRequest = OkGo.get(url);
-        fileGetRequest.execute(callback);
+    /**
+     * 简易下载文件
+     * @param activity ：Activity级别的上下文，主要用于检查权限
+     * @param url ：下载的地址
+     * @param destFileDir ：下载到的文件夹
+     * @param destFileName ：下载保存的文件名
+     * @param callBack ：下载回调
+     */
+    public static void simpleDownloadFile(final Activity activity, final String url, final String destFileDir, final String destFileName, final FileDownloadCallBack callBack) {
+        if (activity == null) {
+            if (callBack != null) {
+                callBack.failed("下载失败");
+            }
+            return;
+        }
+        // 检查SD卡权限
+        PermissionUtil.requestPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE, new PermissionUtil.RefuseListener() {
+            @Override
+            public void refuse() {
+                // 没有SD卡权限
+                if (callBack != null) {
+                    callBack.failed("没有SD卡读写权限");
+                }
+            }
+        }, new PermissionUtil.GrantedListener() {
+            @Override
+            public void granted() {
+                // 开始下载文件
+                GetRequest<File> fileGetRequest = OkGo.get(url);
+                fileGetRequest.execute(new FileCallback(destFileDir, destFileName) {
+
+                    @Override
+                    public void onSuccess(Response<File> response) {
+                        KLog.e(TAG, "onSuccess...");
+                        if (callBack != null) {
+                            File body = response.body();
+                            if (body != null && body.exists()){
+                                callBack.success(body);
+                            } else {
+                                callBack.failed("下载失败");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<File> response) {
+                        KLog.e(TAG, "onError...");
+                        super.onError(response);
+                        if (callBack != null){
+                            callBack.failed("下载失败");
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    public interface FileDownloadCallBack {
+        /**
+         * 文件下载失败
+         * @param message : 错误信息
+         */
+        void failed(String message);
+
+        /**
+         * 文件下载成功
+         * @param file
+         */
+        void success(@NonNull File file);
     }
 }

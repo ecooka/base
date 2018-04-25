@@ -1,11 +1,8 @@
 package cn.ecook.base.util;
 
 import android.support.annotation.LayoutRes;
-import android.widget.RelativeLayout;
-
-import com.classic.common.MultipleStatusView;
-
 import cn.ecook.base.http.HttpCode;
+import cn.ecook.base.widget.MultipleStatusView;
 
 /**
  *
@@ -14,10 +11,6 @@ import cn.ecook.base.http.HttpCode;
  */
 
 public class StatusUtil {
-    private static final RelativeLayout.LayoutParams DEFAULT_LAYOUT_PARAMS =
-            new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                    RelativeLayout.LayoutParams.MATCH_PARENT);
-
     /**
      * 切换为loading状态
      */
@@ -27,7 +20,7 @@ public class StatusUtil {
                 if (loadingLayoutRes == 0 ){
                     multipleStatusView.showLoading();
                 } else {
-                    multipleStatusView.showLoading(loadingLayoutRes, DEFAULT_LAYOUT_PARAMS);
+                    multipleStatusView.showLoading(loadingLayoutRes, multipleStatusView.DEFAULT_LAYOUT_PARAMS);
                 }
             }
         } catch (Exception e) {
@@ -75,7 +68,7 @@ public class StatusUtil {
                 if (emptyLayoutRes == 0){
                     multipleStatusView.showEmpty();
                 } else {
-                    multipleStatusView.showEmpty(emptyLayoutRes, DEFAULT_LAYOUT_PARAMS);
+                    multipleStatusView.showEmpty(emptyLayoutRes, multipleStatusView.DEFAULT_LAYOUT_PARAMS);
                 }
             }
         } catch (Exception e) {
@@ -92,7 +85,7 @@ public class StatusUtil {
                 if (networkErrorLayoutRes == 0) {
                     multipleStatusView.showNoNetwork();
                 } else {
-                    multipleStatusView.showNoNetwork(networkErrorLayoutRes, DEFAULT_LAYOUT_PARAMS);
+                    multipleStatusView.showNoNetwork(networkErrorLayoutRes, multipleStatusView.DEFAULT_LAYOUT_PARAMS);
                 }
             }
         } catch (Exception e) {

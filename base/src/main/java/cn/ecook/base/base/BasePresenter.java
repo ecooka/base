@@ -35,6 +35,11 @@ public abstract class BasePresenter {
         return (T) context;
     }
 
+    /**
+     * 可以转换成具体实现IBaseView的子类
+     * @param <T>
+     * @return
+     */
     public <T extends IBaseView> T getBaseView() {
         return baseView == null ? null : (T) baseView;
     }

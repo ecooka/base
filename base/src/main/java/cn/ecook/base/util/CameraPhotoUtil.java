@@ -9,13 +9,15 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
-import android.text.TextUtils;
+import android.view.View;
 
 import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
+import cn.ecook.base.permissions.PermissionNameUtil;
 import cn.ecook.base.permissions.PermissionUtil;
+import cn.ecook.base.widget.dialog.PermissionDialog;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -26,21 +28,49 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * @author ciba
  * @date 2018/4/3
- * @description
+ * @description 照相机和相册工具类
  */
 public class CameraPhotoUtil {
-    public static final int REQUEST_TAKE_PHOTO = 10001;
-    public static final int REQUEST_CHOOSE_PHOTO = 10002;
+    public static final int REQUEST_CAMERA = 10001;
+    public static final int REQUEST_GALLERY = 10002;
     private static final int VERSION24 = 24;
     private static String takePhotoPath;
 
-    public static void takePhoto(final Activity activity, final String authority) {
+    /**
+     * 打开系统相机拍照
+     * @param activity
+     * @param authority ：7.0FileProvider权限
+     */
+    public static void openCamera(final Activity activity, final String authority) {
+
         if (activity == null || activity.isDestroyed()) {
+            // 如果Activity为空或者Activity已经销毁
             return;
         }
+        // 申请所需的权限
         PermissionUtil.requestPermissions(activity, new PermissionUtil.PermissionsListener() {
             @Override
             public void finish(List<String> refusePermissions, List<String> refuseNoAskingPermissions) {
+                if (!refusePermissions.isEmpty() || !refuseNoAskingPermissions.isEmpty()){
+                    // 如果有权限没有申请成功则给予提示
+                    String permission = null;
+                    if (!refuseNoAskingPermissions.isEmpty()){
+                        permission = refuseNoAskingPermissions.get(0);
+                    } else if (!refusePermissions.isEmpty()){
+                        permission = refusePermissions.get(0);
+                    }
+                    final PermissionDialog dialog = new PermissionDialog(activity);
+                    dialog.setTitle("需要手动申请【" + PermissionNameUtil.getPermissionName(permission) + "】权限");
+                    dialog.setDefiniteClick(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                            PermissionUtil.toSetting(activity);
+                        }
+                    });
+                    dialog.show();
+                    return;
+                }
                 File takePhotoFile = new File(FileUtil.getSDRoot(), UUID.randomUUID() + ".jpg");
                 takePhotoPath = takePhotoFile.getAbsolutePath();
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -52,27 +82,37 @@ public class CameraPhotoUtil {
                 }
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                activity.startActivityForResult(intent, REQUEST_TAKE_PHOTO);
+                activity.startActivityForResult(intent, REQUEST_CAMERA);
             }
         }, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA});
     }
 
+    /**
+     * @return ：获取拍照的图片文件
+     */
+    public static File getCameraImage() {
+        return new File(takePhotoPath);
+    }
+
+    /**
+     * 打开系统相册选取图片
+     * @param activity
+     */
     public static void openGallery(Activity activity) {
         if (activity == null || activity.isDestroyed()) {
             return;
         }
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        activity.startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
+        activity.startActivityForResult(intent, REQUEST_GALLERY);
     }
 
-    public static File getTakePhotoFile() {
-        if (TextUtils.isEmpty(takePhotoPath)) {
-            return null;
-        }
-        return new File(takePhotoPath);
-    }
-
-    public static void getPhotoFile(final Context context, final Uri uri, final PhotoFileCallBack callBack) {
+    /**
+     * 获取相册中选取的图片地址
+     * @param context
+     * @param uri
+     * @param callBack
+     */
+    public static void getGalleryImage(final Context context, final Uri uri, final GalleryImageCallBack callBack) {
         if (context == null || uri == null || callBack == null){
             return;
         }
@@ -98,7 +138,7 @@ public class CameraPhotoUtil {
                 });
     }
 
-    public interface PhotoFileCallBack{
+    public interface GalleryImageCallBack {
         /**
          * 通过Uri从本地查询到的图片地址
          * @param path

@@ -13,6 +13,9 @@ public class BaseConfig {
 
     }
 
+    /**
+     * @param debug
+     */
     public static void init(boolean debug) {
         DEBUG = debug;
     }

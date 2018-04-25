@@ -1,6 +1,5 @@
 package cn.ecook.base.widget.dialog;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -43,6 +42,10 @@ public class CameraPhotoDialog extends Dialog {
         }
     };
 
+    /**
+     * @param context
+     * @param authority ：
+     */
     public CameraPhotoDialog(@NonNull Activity context, String authority) {
         super(context, R.style.common_dialog);
         this.activity = context;
@@ -68,7 +71,7 @@ public class CameraPhotoDialog extends Dialog {
     }
 
     private void camera() {
-        CameraPhotoUtil.takePhoto(activity, authority);
+        CameraPhotoUtil.openCamera(activity, authority);
     }
 
     private void choosePhoto() {

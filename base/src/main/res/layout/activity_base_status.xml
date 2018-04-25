@@ -1,30 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<cn.ecook.base.widget.MultipleStatusView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/llBaseStatus"
+    android:id="@+id/msvBaseStatusView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeeeee"
-    android:orientation="vertical">
+    app:emptyView="@layout/status_default_empty"
+    app:loadingView="@layout/status_default_loading"
+    app:noNetworkView="@layout/status_default_no_network"
+    app:headerView="@layout/layout_base_title_bar">
 
-    <cn.ecook.base.widget.TitleBar
-        android:id="@+id/tbBaseTitle"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="#ffffff"
-        android:elevation="2dp" />
-
-    <com.classic.common.MultipleStatusView
-        android:id="@+id/msvBaseStatusView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:emptyView="@layout/status_default_empty"
-        app:loadingView="@layout/status_default_loading"
-        app:noNetworkView="@layout/status_default_no_network">
-
-        <FrameLayout
-            android:id="@+id/flBaseContent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.classic.common.MultipleStatusView>
-</LinearLayout>
+</cn.ecook.base.widget.MultipleStatusView>
