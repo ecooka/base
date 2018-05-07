@@ -29,14 +29,14 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 
 /**
- * 封装OkGo的网络访问帮助类，推出界面时建议调用clearDisposable()
+ * 封装OkGo的网络访问帮助类，退出界面时建议调用clearDisposable()
  *
  * @author ciba
  * @date 2017/9/25
  */
 
 public class HttpUtil {
-    public static final String TAG = "HTTP_UTIL";
+    private static final String TAG = "HTTP_UTIL";
     private static Map<String, CompositeDisposable> compositeDisposableMap = new ConcurrentHashMap<>();
 
     private HttpUtil() {

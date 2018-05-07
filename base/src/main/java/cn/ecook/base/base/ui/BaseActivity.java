@@ -201,8 +201,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     @Override
-    public <T extends View> T findViewById(int id) {
-        return contentView == null ? null : (T) contentView.findViewById(id);
+    public View findViewById(int id) {
+        return contentView == null ? null : contentView.findViewById(id);
     }
 
     /**
@@ -246,7 +246,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         // 设置是否支持手势退出Activity
         page.setSwipeBackEnable(canSwipeBack())
                 // 设置滑动触发区域为屏幕的百分比
-                .setSwipeEdgePercent(0.075f)
+                .setSwipeEdgePercent(0.035f)
                 // 设置触发滑动的灵敏度
                 .setSwipeSensitivity(0.5f)
                 // 设置滑动到某个百分比退出Activity

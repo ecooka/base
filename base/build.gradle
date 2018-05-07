@@ -42,7 +42,7 @@ publish {
     userOrg = 'ecookad'               // bintray注册的用户名
     groupId = 'cn.ecook'
     artifactId = 'base'                // bintray创建的package
-    publishVersion = '0.0.4'
+    publishVersion = '0.0.5'
 }
 
 dependencies {
@@ -51,15 +51,10 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    api('com.android.support:appcompat-v7:26.1.0') {
-        transitive = true
-    }
-    api('com.android.support:design:26.1.0') {
-        transitive = true
-    }
+    api('com.android.support:appcompat-v7:26.1.0')
+    api('com.android.support:design:26.1.0')
+
     api('com.lzy.net:okgo:3.0.4') {
         transitive = true
     }
@@ -69,7 +64,6 @@ dependencies {
     api('com.google.code.gson:gson:2.8.2') {
         transitive = true
     }
-
     api('io.reactivex.rxjava2:rxandroid:2.0.1') {
         transitive = true
     }
@@ -79,7 +73,6 @@ dependencies {
     api('com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar') {
         transitive = true
     }
-
     api('com.github.bumptech.glide:glide:4.2.0') {
         transitive = true
     }

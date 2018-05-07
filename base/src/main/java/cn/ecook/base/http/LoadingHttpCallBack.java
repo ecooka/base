@@ -7,8 +7,8 @@ import cn.ecook.base.widget.dialog.EcookLoadingDialog;
 
 /**
  * 无需关心网络访问UI变化的回调（自带loading状态）
- * Created by mcjs001
  * on 2018/4/18.
+ * @author ciba
  */
 
 public abstract class LoadingHttpCallBack<T> extends HttpCallBack<T> {
