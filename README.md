@@ -35,119 +35,70 @@
 
   * MVC模式下使用BaseActivity（BaseFragment雷同）
 
-    ```java
-    public class MainActivity extends BaseActivity {
-      
-        @Override
-        public int contentView() {
-            // 布局文件
-            return R.layout.activity_main;
-        }
-
-        @Override
-        public void initView(@Nullable Bundle savedInstanceState) {
-            // 初始化控件
-            recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        }
-
-        @Override
-        public void initListener() {
-    		// 初始化事件监听
-        }
-
-        @Override
-        public BasePresenter initBasePresenter() {
-            // MVC无需关心此返回值，只要返回null即可
-            return null;
-        }
-
-        @Override
-        public void initData() {
-            // 初始化数据
-            MainAdapter mainAdapter = new MainAdapter(Arrays.asList(ITEMS));
-            mainAdapter.setOnItemClickListener(this);
-
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(mainAdapter);
-        }
-
-        @Override
-        public boolean canSwipeBack() {
-            // 返回是否可以右滑退出Activity
-            return false;
-        }
-    }
-    ```
+    > [MVC模式下使用BaseActivity](https://github.com/ecooka/base/blob/master/app/src/main/java/cn/ecook/basedemo/activity/MainActivity.java)
 
     ​
 
   * MVP模式下使用BaseActivity（BaseFragment雷同）
 
-    ```java
-    // 和MVC用法基本类似，指定BasePresenter
-    public class MVPActivity extends BaseActivity<BasePresenter> implements IBaseView {
-        @Override
-        public int contentView() {
-            return 0;
-        }
-
-        @Override
-        public void initView(@Nullable Bundle savedInstanceState) {
-
-        }
-
-        @Override
-        public void initListener() {
-
-        }
-
-        @Override
-        public BasePresenter initBasePresenter() {
-            // MVP返回BasePresenter的实现类并指定View层接口(第二个参数，IBaseView的实现类)
-            // 在BasePresenter的实现类中进行业务操作
-            return new MVPPresent(this, this);
-        }
-
-        @Override
-        public void initData() {
-
-        }
-    }
-    ```
-
-  * MVVM模式下使用BaseActivity（BaseFragment雷同）
-
-    ```java
-    // 使用和MVVM基本一致，指定泛型为BaseViewModel
-    public class MVVMActivity extends BaseActivity<BaseViewModel> {
-        @Override
-        public int contentView() {
-            return 0;
-        }
-
-        @Override
-        public void initView(@Nullable Bundle savedInstanceState) {
-
-        }
-
-        @Override
-        public void initListener() {
-
-        }
-
-        @Override
-        public BaseViewModel initBasePresenter() {
-            // MVVM返回BaseViewModel的实现类
-            // 在BaseViewModel的实现类中进行业务操作
-            return new MVVMViewModel(this);
-        }
-
-        @Override
-        public void initData() {
-
-        }
-    }
-    ```
+    > [MVP模式下使用BaseActivity](https://github.com/ecooka/base/blob/master/app/src/main/java/cn/ecook/basedemo/activity/MVPActivity.java)
+    >
+    > [MVP的BasePresenter使用](https://github.com/ecooka/base/blob/master/app/src/main/java/cn/ecook/basedemo/presenter/MVPPresent.java)
 
     ​
 
+  * MVVM模式下使用BaseActivity（BaseFragment雷同）
+
+    > [MVVM模式下使用BaseActivity](https://github.com/ecooka/base/blob/master/app/src/main/java/cn/ecook/basedemo/activity/MVVMActivity.java)
+    >
+    > [MVVM的BaseViewModel使用](https://github.com/ecooka/base/blob/master/app/src/main/java/cn/ecook/basedemo/viewmodel/MVVMViewModel.java)
+
+    ​
+
+  * 多状态（loading，empty，noNetwork，content）界面使用（BaseStatusActivity和BaseStatusFragment）,BaseStatusActivity包含了TitleBar
+
+    > [多状态控件基于此控件稍作修改](https://github.com/qyxxjd/MultipleStatusView)
+
+
+    ​
+
+    使用和BaseActivity和BaseFragment一样，只是继承BaseStatusActivity和BaseStatusFragment
+
+    > [BaseStatusActivity的使用](https://github.com/ecooka/base/tree/master/app/src/main/java/cn/ecook/basedemo/activity/StatusActivity.java)
+
+    ​
+
+    当然，可以使用BaseConfig设置全局的不同状态展示
+
+    > [BaseConfig的相关配置](https://github.com/ecooka/base/tree/master/app/src/main/java/cn/ecook/basedemo/MyApplication.java)
+
+    ​
+
+    在BasePresenter或BaseViewModel的实现类中如何切换状态和更新TitleBar
+
+    ```java
+    public abstract class BasePresenter {
+        protected ITitleBarUi iTitleBar;
+        protected IStatusUi iStatus;
+
+        ......
+        
+        /**
+         * 设置titleBar 和 状态布局操作接口
+         * @param iTitleBar
+         * @param iStatus
+         */
+        public void setTitleAndStatusInt(ITitleBarUi iTitleBar, IStatusUi iStatus) {
+            this.iTitleBar = iTitleBar;
+            this.iStatus = iStatus;
+        }
+    }
+    ```
+
+    BaseViewModel继承BasePresenter，BasePresenter中的setTitleAndStatusInt是BaseStatusActivity和BaseStatusFragment中重写设置了对应TitleBar和多状态操作的接口，具体参考以下
+
+    > [TitleBar操作接口](https://github.com/ecooka/base/blob/master/base/src/main/java/cn/ecook/base/base/ui/ITitleBarUi.java)
+    >
+    > [多状态布局操作接口](https://github.com/ecooka/base/blob/master/base/src/main/java/cn/ecook/base/base/ui/IStatusUi.java)
+
+    ​

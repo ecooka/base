@@ -18,35 +18,38 @@ import cn.ecook.basedemo.adapter.MainAdapter;
 /**
  * @author ciba
  * @date 2018/4/3
- * @description
+ * @description MainActivity是MVC
  */
-
 public class MainActivity extends BaseActivity implements BaseQuickAdapter.OnItemClickListener {
     private static final String[] ITEMS = {"TabViewPager", "Permission", "CameraPhoto", "IMAGES"};
     private RecyclerView recyclerView;
 
     @Override
     public int contentView() {
+        // 布局
         return R.layout.activity_main;
     }
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
+        // 初始化控件
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
     }
 
     @Override
     public void initListener() {
-
+        // 初始化事件监听
     }
 
     @Override
     public BasePresenter initBasePresenter() {
+        // MVC无需关心此返回值，只要返回null即可
         return null;
     }
 
     @Override
     public void initData() {
+        // 初始化数据
         MainAdapter mainAdapter = new MainAdapter(Arrays.asList(ITEMS));
         mainAdapter.setOnItemClickListener(this);
 
@@ -56,6 +59,7 @@ public class MainActivity extends BaseActivity implements BaseQuickAdapter.OnIte
 
     @Override
     public boolean canSwipeBack() {
+        // 返回是否可以右滑退出Activity
         return false;
     }
 

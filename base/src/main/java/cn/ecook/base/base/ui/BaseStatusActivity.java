@@ -47,7 +47,7 @@ public abstract class BaseStatusActivity<T extends BasePresenter> extends BaseAc
     }
 
     @Override
-    public void initStatusInterface() {
+    public final void initStatusInterface() {
         if (basePresenter != null) {
             basePresenter.setTitleAndStatusInt(this, this);
         }

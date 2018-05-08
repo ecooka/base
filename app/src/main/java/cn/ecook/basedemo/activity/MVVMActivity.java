@@ -10,7 +10,7 @@ import cn.ecook.basedemo.viewmodel.MVVMViewModel;
 /**
  * @author ciba
  * @date 2018/4/3
- * @description
+ * @description  使用和MV基本一致，指定泛型为BaseViewModel
  */
 
 public class MVVMActivity extends BaseActivity<BaseViewModel> {
@@ -31,6 +31,8 @@ public class MVVMActivity extends BaseActivity<BaseViewModel> {
 
     @Override
     public BaseViewModel initBasePresenter() {
+        // MVVM返回BaseViewModel的实现类
+        // 在BaseViewModel的实现类中进行业务操作
         return new MVVMViewModel(this);
     }
 

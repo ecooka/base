@@ -5,18 +5,21 @@ import android.support.annotation.Nullable;
 
 import cn.ecook.base.base.BasePresenter;
 import cn.ecook.base.base.IBaseView;
-import cn.ecook.base.base.ui.BaseActivity;
+import cn.ecook.base.base.ui.BaseStatusActivity;
+import cn.ecook.basedemo.R;
 import cn.ecook.basedemo.presenter.MVPPresent;
 
 /**
  * @author ciba
  * @date 2018/4/3
- * @description 和MVC用法基本类似，指定BasePresenter
+ * @description MVP模式下多状态Activity的使用，和BaseActivity基本一致
  */
 
-public class MVPActivity extends BaseActivity<BasePresenter> implements IBaseView {
+public class StatusActivity extends BaseStatusActivity<BasePresenter> implements IBaseView {
     @Override
     public int contentView() {
+        // 定制化不同状态展示的内容(loading，empty，noNetwork)
+        initStatusDefaultLayoutRes(R.layout.status_default_loading, R.layout.status_default_empty, R.layout.status_default_no_network);
         return 0;
     }
 
@@ -32,9 +35,7 @@ public class MVPActivity extends BaseActivity<BasePresenter> implements IBaseVie
 
     @Override
     public BasePresenter initBasePresenter() {
-        // MVP返回BasePresenter的实现类并指定View层接口(第二个参数，IBaseView的实现类)
-        // 在BasePresenter的实现类中进行业务操作
-        return new MVPPresent(this, this);
+        return new MVPPresent(this,this);
     }
 
     @Override
