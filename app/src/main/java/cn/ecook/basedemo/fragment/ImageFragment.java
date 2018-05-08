@@ -60,13 +60,4 @@ public class ImageFragment extends BaseFragment {
     public void initData() {
         GlideUtil.display(activity, getArguments().getString(IMAGE_URL), ivImage);
     }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (rootView == null){
-            return;
-        }
-        rootView.setVisibility(isVisibleToUser ? View.VISIBLE : View.GONE);
-    }
 }

@@ -102,3 +102,26 @@
     > [多状态布局操作接口](https://github.com/ecooka/base/blob/master/base/src/main/java/cn/ecook/base/base/ui/IStatusUi.java)
 
     ​
+
+* Step5 ：权限，通用功能，网络访问
+
+  * 权限申请
+
+    > [权限申请工具类使用](https://github.com/ecooka/base/blob/master/app/src/main/java/cn/ecook/basedemo/activity/PermissionActivity.java)
+
+  * 照相机系统相册使用
+
+    > [照相机系统相册及通用弹框使用](https://github.com/ecooka/base/blob/master/app/src/main/java/cn/ecook/basedemo/activity/CameraPhotoActivity.java)
+
+  * 可缩放，支持下载的图片画廊
+
+    ```java
+    GalleryActivity.jumpHere(mContext, holder.getAdapterPosition(), true, getData());
+    ```
+
+    > [可缩放，支持下载的图片画廊界面](https://github.com/ecooka/base/blob/master/base/src/main/java/cn/ecook/base/activity/GalleryActivity.java)
+
+  * 网络请求
+
+    > [网络请求，initBizData()内](https://github.com/ecooka/base/blob/master/app/src/main/java/cn/ecook/basedemo/presenter/MVPStatusPresent.java)
+
