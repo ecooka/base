@@ -7,8 +7,6 @@ import android.widget.ImageView;
 
 import cn.ecook.base.base.BasePresenter;
 import cn.ecook.base.base.ui.BaseFragment;
-import cn.ecook.base.http.HttpUtil;
-import cn.ecook.base.http.LoadingHttpCallBack;
 import cn.ecook.base.listener.SingleClickListener;
 import cn.ecook.base.util.GlideUtil;
 import cn.ecook.base.widget.dialog.CameraPhotoDialog;
@@ -61,19 +59,6 @@ public class ImageFragment extends BaseFragment {
     @Override
     public void initData() {
         GlideUtil.display(activity, getArguments().getString(IMAGE_URL), ivImage);
-        // 模拟获取数据
-        HttpUtil.obGet("http://op.juhe.cn/onebox/football/league?key=bbdf40a269d0f08936ddb07b076be559&league=%E6%B3%95%E7%94%B2"
-                , null, new LoadingHttpCallBack<String>(activity) {
-                    @Override
-                    public void success(String s) {
-                        toast("success");
-                    }
-
-                    @Override
-                    public void error(int code, String msg) {
-                        toast("error");
-                    }
-                });
     }
 
     @Override

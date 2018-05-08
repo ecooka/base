@@ -50,6 +50,16 @@
         <activity
             android:name=".activity.ImagesActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.MVPActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MVVMActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.StatusActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -1,9 +1,11 @@
 package cn.ecook.basedemo.viewmodel;
 
 import android.content.Context;
+import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
 import cn.ecook.base.base.BaseViewModel;
+import cn.ecook.basedemo.databinding.ActivityMvvmBinding;
 
 /**
  * @author ciba
@@ -12,6 +14,8 @@ import cn.ecook.base.base.BaseViewModel;
  */
 
 public class MVVMViewModel extends BaseViewModel {
+    public final ObservableField<String> helloWorld = new ObservableField<>();
+    private ActivityMvvmBinding binding;
     public MVVMViewModel(@NonNull Context context) {
         super(context);
     }
@@ -24,10 +28,13 @@ public class MVVMViewModel extends BaseViewModel {
     @Override
     public void initData() {
         // 初始化非业务数据
+        binding = getBinding();
+        binding.setMvvm(this);
     }
 
     @Override
     public void initBizData() {
         // 初始化业务数据，诸如调用接口之类的
+        helloWorld.set("HELLO WORLD!!!");
     }
 }

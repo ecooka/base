@@ -21,7 +21,7 @@ import cn.ecook.basedemo.adapter.MainAdapter;
  * @description MainActivity是MVC
  */
 public class MainActivity extends BaseActivity implements BaseQuickAdapter.OnItemClickListener {
-    private static final String[] ITEMS = {"TabViewPager", "Permission", "CameraPhoto", "IMAGES"};
+    private static final String[] ITEMS = {"TabViewPager", "Permission", "CameraPhoto", "IMAGES", "MVP", "MVVM", "STATUS"};
     private RecyclerView recyclerView;
 
     @Override
@@ -77,6 +77,15 @@ public class MainActivity extends BaseActivity implements BaseQuickAdapter.OnIte
                 break;
             case 3:
                 ImagesActivity.jumpHere(this);
+                break;
+            case 4:
+                MVPActivity.jumpHere(this);
+                break;
+            case 5:
+                MVVMActivity.jumpHere(this);
+                break;
+            case 6:
+                StatusActivity.jumpHere(this);
                 break;
             default:
                 break;

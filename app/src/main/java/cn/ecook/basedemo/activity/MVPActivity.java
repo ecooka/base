@@ -1,12 +1,17 @@
 package cn.ecook.basedemo.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 
 import cn.ecook.base.base.BasePresenter;
 import cn.ecook.base.base.IBaseView;
 import cn.ecook.base.base.ui.BaseActivity;
+import cn.ecook.basedemo.R;
 import cn.ecook.basedemo.presenter.MVPPresent;
+import cn.ecook.basedemo.view.MVPView;
 
 /**
  * @author ciba
@@ -14,15 +19,21 @@ import cn.ecook.basedemo.presenter.MVPPresent;
  * @description 和MVC用法基本类似，指定BasePresenter
  */
 
-public class MVPActivity extends BaseActivity<BasePresenter> implements IBaseView {
+public class MVPActivity extends BaseActivity<BasePresenter> implements MVPView {
+    private TextView tvContent;
+
+    public static void jumpHere(Context context) {
+        context.startActivity(new Intent(context, MVPActivity.class));
+    }
+
     @Override
     public int contentView() {
-        return 0;
+        return R.layout.activity_mvp;
     }
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
-
+        tvContent = (TextView) findViewById(R.id.tvContent);
     }
 
     @Override
@@ -40,5 +51,10 @@ public class MVPActivity extends BaseActivity<BasePresenter> implements IBaseVie
     @Override
     public void initData() {
 
+    }
+
+    @Override
+    public void loadFinish(String result) {
+        tvContent.setText(result);
     }
 }

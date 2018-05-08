@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 
 import cn.ecook.base.base.BasePresenter;
 import cn.ecook.base.base.IBaseView;
+import cn.ecook.base.http.HttpCallBack;
+import cn.ecook.base.http.HttpUtil;
 import cn.ecook.basedemo.view.MVPView;
 
 /**
@@ -14,9 +16,9 @@ import cn.ecook.basedemo.view.MVPView;
  *              可通过baseView来进行UI交互
  */
 
-public class MVPPresent extends BasePresenter {
+public class MVPStatusPresent extends BasePresenter {
     private MVPView mvpView;
-    public MVPPresent(@NonNull Context context, IBaseView baseView) {
+    public MVPStatusPresent(@NonNull Context context, IBaseView baseView) {
         super(context, baseView);
     }
 
@@ -33,7 +35,20 @@ public class MVPPresent extends BasePresenter {
 
     @Override
     public void initBizData() {
+        iStatus.showLoading();
         // 初始化业务数据，诸如调用接口之类的
-        mvpView.loadFinish("load finish");
+        HttpUtil.obGet("http://op.juhe.cn/onebox/football/league?key=bbdf40a269d0f08936ddb07b076be559&league=%E6%B3%95%E7%94%B2"
+                , null, new HttpCallBack<String>(context) {
+                    @Override
+                    public void onSuccess(String s) {
+                        iStatus.dismissLoading();
+                        mvpView.loadFinish(s);
+                    }
+
+                    @Override
+                    public void onError(int code, String msg) {
+                        iStatus.dismissLoading(true, code);
+                    }
+                });
     }
 }
