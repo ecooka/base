@@ -22,7 +22,7 @@
 * Step2
 
   ```
-  compile 'cn.ecook:base:0.0.5'
+  compile 'cn.ecook:base:0.0.6'
   ```
 
 * Step3
