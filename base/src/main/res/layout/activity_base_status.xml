@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     app:emptyView="@layout/status_default_empty"
     app:loadingView="@layout/status_default_loading"
-    app:noNetworkView="@layout/status_default_no_network"
-    app:headerView="@layout/layout_base_title_bar">
+    app:noNetworkView="@layout/status_default_no_network">
 
 </cn.ecook.base.widget.MultipleStatusView>

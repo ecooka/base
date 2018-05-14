@@ -31,6 +31,7 @@ public class GalleryPagerAdapter extends PagerAdapter {
 
     private final List<String> imageUrl;
     private final RequestOptions options;
+    private View.OnClickListener onClickListener;
 
     public GalleryPagerAdapter(List<String> imageUrl) {
         this.imageUrl = imageUrl;
@@ -53,7 +54,7 @@ public class GalleryPagerAdapter extends PagerAdapter {
         View loading = view.findViewById(R.id.loading);
 
         GlideUtil.display(photoView.getContext(), imageUrl.get(position), photoView, options, true, new ImageLoadListener(loading));
-
+        photoView.setOnClickListener(onClickListener);
         // Now just add PhotoView to ViewPager and return it
         container.addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
@@ -68,6 +69,10 @@ public class GalleryPagerAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
+    }
+
+    public void setOnItemClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
     }
 
     public static class ImageLoadListener implements RequestListener<Drawable> {

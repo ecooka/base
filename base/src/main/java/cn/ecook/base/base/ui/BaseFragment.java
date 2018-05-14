@@ -83,7 +83,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     }
 
     @Override
-    public void initStatusInterface() {
+    public void initIStatusUi() {
 
     }
 

@@ -39,9 +39,9 @@ public abstract class BaseStatusFragment<T extends BasePresenter> extends BaseFr
     }
 
     @Override
-    public void initStatusInterface() {
+    public void initIStatusUi() {
         if (basePresenter != null) {
-            basePresenter.setTitleAndStatusInt(null, this);
+            basePresenter.setIStatusUi(this);
         }
     }
 

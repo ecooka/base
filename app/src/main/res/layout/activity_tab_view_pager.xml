@@ -6,7 +6,8 @@
     android:layout_height="match_parent">
     <cn.ecook.base.widget.TabViewPager
         android:id="@+id/tabViewPager"
-        app:fix="false"
+        app:fix="true"
+        app:lineFixContent="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

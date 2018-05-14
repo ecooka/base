@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.jude.swipbackhelper.SwipeBackPage;
@@ -24,8 +25,11 @@ import java.util.List;
 
 import cn.ecook.base.base.BasePresenter;
 import cn.ecook.base.base.BaseViewModel;
+import cn.ecook.base.listener.SingleClickListener;
 import cn.ecook.base.manager.AppManager;
+import cn.ecook.base.helper.BaseTitleBarHelper;
 import cn.ecook.base.util.ToastUtil;
+import cn.ecook.base.widget.TitleBar;
 
 /**
  * Activity基类
@@ -34,12 +38,13 @@ import cn.ecook.base.util.ToastUtil;
  * @date 2018/4/2
  */
 
-public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements IBaseUi<T> {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements IBaseUi<T>, ITitleBarUi {
     private static final String TAG = "BaseActivity";
     private WeakReference<Activity> activityWeakReference;
     protected T basePresenter;
     private boolean fullScreen;
     private View contentView;
+    private BaseTitleBarHelper titleBarHelper;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,39 +57,38 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
         // 设置是否全屏
         fullScreen();
-        // 右滑退出界面创建
-        SwipeBackHelper.onCreate(this);
-
         // 初始化布局
         contentView = LayoutInflater.from(this).inflate(contentView(), null);
-
         if (titleAndStatus()) {
             // 是否是多状态类型
-//            setContentView(R.layout.activity_base_status);
-            initStatusView(contentView);
+            View view = initStatusView(contentView);
+            // TitleBar帮助类
+            titleBarHelper = new BaseTitleBarHelper(this, view);
         } else {
             setContentView(contentView);
+            // TitleBar帮助类
+            titleBarHelper = new BaseTitleBarHelper(this, contentView);
         }
 
         // 初始化View
         initView(savedInstanceState);
         // 初始化事件监听
         initListener();
-
+        // 初始化数据?
         initData();
-
         // 初始化业务基类
         basePresenter = initBasePresenter();
-
-        initStatusInterface();
+        // 初始化多状态操作(在BaseStatusActivity中重写了)
+        initIStatusUi();
 
         if (basePresenter != null) {
-            //
             if (basePresenter instanceof BaseViewModel) {
                 // 如果是DataBinding类型
                 ViewDataBinding binding = DataBindingUtil.bind(contentView);
                 ((BaseViewModel) basePresenter).setBinding(binding);
             }
+            // 设置TitleBar操作
+            basePresenter.setITitleBarUi(this);
             // 业务初始化监听(EventBus之类的)
             basePresenter.initListener();
             // 业务初始化数据(与业务无关的数据)
@@ -92,7 +96,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             // 业务初始化
             basePresenter.initBizData();
         }
-
+        // 初始化手势返回
         initSwipeBack();
     }
 
@@ -151,6 +155,14 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         AppManager.getAppManager().removeActivity(activityWeakReference);
         if (basePresenter != null) {
             basePresenter.onDestroy();
+            basePresenter = null;
+        }
+        if (titleBarHelper != null){
+            FrameLayout decorFrameLayout = titleBarHelper.getDecorFrameLayout();
+            if (decorFrameLayout != null){
+                decorFrameLayout.removeAllViews();
+            }
+            titleBarHelper = null;
         }
     }
 
@@ -173,7 +185,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * 在这里初始化多状态的接口{@link BaseStatusActivity}
      */
     @Override
-    public void initStatusInterface() {
+    public void initIStatusUi() {
     }
 
     /**
@@ -193,16 +205,42 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         ToastUtil.toast(this, toast);
     }
 
+    @Override
+    public View findViewById(int id) {
+        return contentView == null ? null : contentView.findViewById(id);
+    }
+
+    @Override
+    public void setBaseTitleVisible(boolean visible) {
+        titleBarHelper.setTitleVisible(visible);
+    }
+
+    @Override
+    public void setBaseTitle(String title) {
+        titleBarHelper.setTitle(title);
+    }
+
+    @Override
+    public void setLeftListener(SingleClickListener listener) {
+        titleBarHelper.setLeftListener(listener);
+    }
+
+    @Override
+    public void setLeftVisible(boolean visible) {
+        titleBarHelper.setLeftVisible(visible);
+    }
+
+    @Override
+    public void addRightActions(TitleBar.ActionList actionList) {
+        titleBarHelper.addRightActions(actionList);
+    }
+
     public boolean titleAndStatus() {
         return false;
     }
 
-    public void initStatusView(View contentView) {
-    }
-
-    @Override
-    public View findViewById(int id) {
-        return contentView == null ? null : contentView.findViewById(id);
+    protected View initStatusView(View contentView) {
+        return null;
     }
 
     /**
@@ -242,6 +280,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * 初始化右滑退出Activity
      */
     private void initSwipeBack() {
+        // 右滑退出界面创建
+        SwipeBackHelper.onCreate(this);
         SwipeBackPage page = SwipeBackHelper.getCurrentPage(this);
         // 设置是否支持手势退出Activity
         page.setSwipeBackEnable(canSwipeBack())
@@ -260,5 +300,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      */
     public boolean canSwipeBack() {
         return true;
+    }
+
+    /**
+     * @return ：获取TitleBar 没有调用setTitle() titleBar为空
+     */
+    public TitleBar getBaseTitleBar() {
+        return titleBarHelper.getTitleBar();
     }
 }

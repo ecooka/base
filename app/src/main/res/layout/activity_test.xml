@@ -2,8 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-        <cn.ecook.base.widget.ImagesRecyclerView
-            android:id="@+id/recyclerView"
+        <cn.ecook.base.widget.MySmartRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+                <cn.ecook.base.widget.ImagesRecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+        </cn.ecook.base.widget.MySmartRefreshLayout>
 </LinearLayout>

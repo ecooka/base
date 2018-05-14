@@ -35,19 +35,19 @@ public class MVPStatusPresent extends BasePresenter {
 
     @Override
     public void initBizData() {
-        iStatus.showLoading();
+        iStatusUi.showLoading();
         // 初始化业务数据，诸如调用接口之类的
         HttpUtil.obGet("http://op.juhe.cn/onebox/football/league?key=bbdf40a269d0f08936ddb07b076be559&league=%E6%B3%95%E7%94%B2"
                 , null, new HttpCallBack<String>(context) {
                     @Override
                     public void onSuccess(String s) {
-                        iStatus.dismissLoading();
+                        iStatusUi.dismissLoading();
                         mvpView.loadFinish(s);
                     }
 
                     @Override
                     public void onError(int code, String msg) {
-                        iStatus.dismissLoading(true, code);
+                        iStatusUi.dismissLoading(true, code);
                     }
                 });
     }

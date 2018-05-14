@@ -42,7 +42,7 @@ public interface IBaseUi<T extends BasePresenter> {
     /**
      * 初始化多状态接口
      */
-    void initStatusInterface();
+    void initIStatusUi();
 
     /**
      * MVP，MVVM初始化非业务数据

@@ -49,6 +49,7 @@
         <attr name="tabIndicatorColor" format="color" />
         <attr name="tabTextColor" format="color" />
         <attr name="tabSelectedTextColor" format="color" />
+        <attr name="lineFixContent" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="MultipleStatusView">
@@ -57,6 +58,5 @@
         <attr name="emptyView" format="reference" />
         <attr name="noNetworkView" format="reference" />
         <attr name="contentView" format="reference" />
-        <attr name="headerView" format="reference" />
     </declare-styleable>
 </resources>

@@ -24,7 +24,7 @@ public abstract class BasePresenter {
     private final IBaseView baseView;
     protected final Context context;
     protected ITitleBarUi iTitleBar;
-    protected IStatusUi iStatus;
+    protected IStatusUi iStatusUi;
 
     public BasePresenter(@NonNull Context context, IBaseView baseView) {
         this.context = context;
@@ -45,13 +45,19 @@ public abstract class BasePresenter {
     }
 
     /**
-     * 设置titleBar 和 状态布局
-     * @param iTitleBar
-     * @param iStatus
+     * 设置状态布局操作接口
+     * @param iStatusUi
      */
-    public void setTitleAndStatusInt(ITitleBarUi iTitleBar, IStatusUi iStatus) {
+    public void setIStatusUi(IStatusUi iStatusUi) {
+        this.iStatusUi = iStatusUi;
+    }
+
+    /**
+     * 设置TitleBar操作接口
+     * @param iTitleBarUi
+     */
+    public void setITitleBarUi(ITitleBarUi iTitleBarUi){
         this.iTitleBar = iTitleBar;
-        this.iStatus = iStatus;
     }
 
     public void onResume() { }

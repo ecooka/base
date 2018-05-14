@@ -27,8 +27,8 @@ import cn.ecook.basedemo.R;
 public class ImageAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     private final Activity activity;
 
-    public ImageAdapter(@Nullable List<String> data, Activity activity) {
-        super(R.layout.item_image,data);
+    public ImageAdapter(Activity activity) {
+        super(R.layout.item_image);
         this.activity = activity;
     }
 

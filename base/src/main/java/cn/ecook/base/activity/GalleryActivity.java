@@ -100,7 +100,14 @@ public class GalleryActivity extends BaseActivity implements ViewPager.OnPageCha
 
         tvSave.setVisibility(needDownload ? View.VISIBLE : View.GONE);
 
-        viewPager.setAdapter(new GalleryPagerAdapter(images));
+        GalleryPagerAdapter galleryPagerAdapter = new GalleryPagerAdapter(images);
+        galleryPagerAdapter.setOnItemClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        viewPager.setAdapter(galleryPagerAdapter);
         viewPager.setCurrentItem(position);
         tvPager.setText((position + 1) + " / " + images.size());
     }

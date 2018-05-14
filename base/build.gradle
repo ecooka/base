@@ -82,6 +82,12 @@ dependencies {
     api('com.github.chrisbanes:PhotoView:2.0.0') {
         transitive = true
     }
+    api('com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30') {
+        transitive = true
+    }
+    api('com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5') {
+        transitive = true
+    }
     api('com.jude:swipebackhelper:3.1.2') {
         transitive = true
     }

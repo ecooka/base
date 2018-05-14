@@ -35,13 +35,11 @@ public class MultipleStatusView extends RelativeLayout {
     private View mLoadingView;
     private View mNoNetworkView;
     private View mContentView;
-    private View mHeaderView;
     private int mEmptyViewResId;
     private int mErrorViewResId;
     private int mLoadingViewResId;
     private int mNoNetworkViewResId;
     private int mContentViewResId;
-    private int mHeaderViewResId;
 
     private int mViewStatus;
     private LayoutInflater mInflater;
@@ -61,22 +59,9 @@ public class MultipleStatusView extends RelativeLayout {
         mLoadingViewResId = a.getResourceId(R.styleable.MultipleStatusView_loadingView, R.layout.status_default_loading);
         mNoNetworkViewResId = a.getResourceId(R.styleable.MultipleStatusView_noNetworkView, R.layout.status_default_no_network);
         mContentViewResId = a.getResourceId(R.styleable.MultipleStatusView_contentView, NULL_RESOURCE_ID);
-        mHeaderViewResId = a.getResourceId(R.styleable.MultipleStatusView_headerView, NULL_RESOURCE_ID);
 
         a.recycle();
         mInflater = LayoutInflater.from(getContext());
-        addHeader();
-    }
-
-    private void addHeader() {
-        if (null == mHeaderView && mHeaderViewResId != NULL_RESOURCE_ID) {
-            mHeaderView = mInflater.inflate(mHeaderViewResId, null);
-            RelativeLayout.LayoutParams params =
-                    new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,
-                            LayoutParams.WRAP_CONTENT);
-            addView(mHeaderView, 0, params);
-            DEFAULT_LAYOUT_PARAMS.addRule(RelativeLayout.BELOW, mHeaderView.getId());
-        }
     }
 
     @Override
@@ -299,7 +284,7 @@ public class MultipleStatusView extends RelativeLayout {
             if (viewTag instanceof Integer){
                 viewTagInt = (int) viewTag;
             }
-            view.setVisibility(viewTagInt == tag || view == mHeaderView ? View.VISIBLE : View.GONE);
+            view.setVisibility(viewTagInt == tag ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -322,9 +307,5 @@ public class MultipleStatusView extends RelativeLayout {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public View getHeaderView() {
-        return mHeaderView;
     }
 }
