@@ -68,19 +68,19 @@
     > [多状态控件基于此控件稍作修改](https://github.com/qyxxjd/MultipleStatusView)
 
 
-    ​
+    
     
     使用和BaseActivity和BaseFragment一样，只是继承BaseStatusActivity和BaseStatusFragment
     
     > [BaseStatusActivity的使用](https://github.com/ecooka/base/tree/master/app/src/main/java/cn/ecook/basedemo/activity/StatusActivity.java)
     
-    ​
+    
     
     当然，可以使用BaseConfig设置全局的不同状态展示
     
     > [BaseConfig的相关配置](https://github.com/ecooka/base/tree/master/app/src/main/java/cn/ecook/basedemo/MyApplication.java)
     
-    ​
+    
     
     在BasePresenter或BaseViewModel的实现类中如何切换状态和更新TitleBar
     
@@ -92,24 +92,30 @@
         ......
         
         /**
-         * 设置titleBar 和 状态布局操作接口
-         * @param iTitleBar
-         * @param iStatus
+         * 设置状态布局操作接口
+         * @param iStatusUi
          */
-        public void setTitleAndStatusInt(ITitleBarUi iTitleBar, IStatusUi iStatus) {
+        public void setIStatusUi(IStatusUi iStatusUi) {
+            this.iStatusUi = iStatusUi;
+        }
+    
+        /**
+         * 设置TitleBar操作接口
+         * @param iTitleBarUi
+         */
+        public void setITitleBarUi(ITitleBarUi iTitleBarUi){
             this.iTitleBar = iTitleBar;
-            this.iStatus = iStatus;
         }
     }
     ```
     
-    BaseViewModel继承BasePresenter，BasePresenter中的setTitleAndStatusInt是BaseStatusActivity和BaseStatusFragment中重写设置了对应TitleBar和多状态操作的接口，具体参考以下
+    BaseViewModel继承BasePresenter，BasePresenter中的setIStatusUi是BaseStatusActivity和BaseStatusFragment中重写设置了对应的多状态操作的接口，所以只有继承了BaseStatusActivity或BaseStatusFragment才存在iStatusUi；setITitleBarUi在BaseActivity中调用了，所以只要是BaseActivity的子类都具备iTitleBar，BaseFragment没有对应的逻辑，注意使用；IStatusUi和ITitleBarUi的具体方法参考以下
     
     > [TitleBar操作接口](https://github.com/ecooka/base/blob/master/base/src/main/java/cn/ecook/base/base/ui/ITitleBarUi.java)
     >
     > [多状态布局操作接口](https://github.com/ecooka/base/blob/master/base/src/main/java/cn/ecook/base/base/ui/IStatusUi.java)
     
-    ​
+    
 
 * Step5 ：权限，通用功能，网络访问
 
