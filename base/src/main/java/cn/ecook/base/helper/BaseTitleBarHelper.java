@@ -1,6 +1,7 @@
 package cn.ecook.base.helper;
 
 import android.app.Activity;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 
 import cn.ecook.base.R;
+import cn.ecook.base.base.BaseConfig;
 import cn.ecook.base.listener.SingleClickListener;
 import cn.ecook.base.util.DisplayUtil;
 import cn.ecook.base.widget.TitleBar;
@@ -87,6 +89,15 @@ public class BaseTitleBarHelper {
     }
 
     /**
+     * 设置左边返回按钮的图标
+     */
+    public void setLeftIcon(@DrawableRes int icon) {
+        if (titleBar != null) {
+            titleBar.setLeftImageResource(icon);
+        }
+    }
+
+    /**
      * 添加右边拓展的其他Action按钮
      *
      * @param actionList
@@ -114,6 +125,7 @@ public class BaseTitleBarHelper {
         FrameLayout decorFrameLayout = getDecorFrameLayout();
         if (decorFrameLayout != null) {
             titleBar = (TitleBar) LayoutInflater.from(activity).inflate(R.layout.layout_base_title_bar, null, false);
+            setLeftIcon(0 == BaseConfig.DEFAULT_GO_BACK ? R.drawable.titlebar_return_icon_black : BaseConfig.DEFAULT_GO_BACK);
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp48);
             layoutParams.topMargin = statusBarHeight;
             titleBar.setLayoutParams(layoutParams);

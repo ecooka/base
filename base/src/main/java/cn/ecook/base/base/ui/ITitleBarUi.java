@@ -1,5 +1,7 @@
 package cn.ecook.base.base.ui;
 
+import android.support.annotation.DrawableRes;
+
 import cn.ecook.base.listener.SingleClickListener;
 import cn.ecook.base.widget.TitleBar;
 
@@ -21,6 +23,8 @@ public interface ITitleBarUi {
      * @param title ：标题
      */
     void setBaseTitle(String title);
+
+    void setLeftIcon(@DrawableRes int icon);
 
     /**
      * 设置左边返回按钮点击事件（默认是返回上一页）

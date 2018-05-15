@@ -38,13 +38,15 @@ public class GalleryActivity extends BaseActivity implements ViewPager.OnPageCha
     private MediaScannerConnection scanner;
     private List<String> images;
     private EcookLoadingDialog dialog;
+    private boolean needDownload;
 
     /**
      * 跳转到当前界面
-     * @param context ：上下文
-     * @param position ：默认显示第几个图片
+     *
+     * @param context      ：上下文
+     * @param position     ：默认显示第几个图片
      * @param needDownload ：是否需要显示下载按钮
-     * @param images ：图片地址集合
+     * @param images       ：图片地址集合
      */
     public static void jumpHere(Context context, int position, boolean needDownload, List<String> images) {
         Intent intent = new Intent(context, GalleryActivity.class);
@@ -93,12 +95,12 @@ public class GalleryActivity extends BaseActivity implements ViewPager.OnPageCha
         Intent intent = getIntent();
         images = (List<String>) intent.getSerializableExtra(IMAGES);
         int position = intent.getIntExtra(POSITION, 0);
-        boolean needDownload = intent.getBooleanExtra(NEED_DOWNLOAD, false);
+        needDownload = intent.getBooleanExtra(NEED_DOWNLOAD, false);
 
         scanner = new MediaScannerConnection(this, null);
         scanner.connect();
 
-        tvSave.setVisibility(needDownload ? View.VISIBLE : View.GONE);
+        setSaveVisible(0);
 
         GalleryPagerAdapter galleryPagerAdapter = new GalleryPagerAdapter(images);
         galleryPagerAdapter.setOnItemClickListener(new View.OnClickListener() {
@@ -115,7 +117,7 @@ public class GalleryActivity extends BaseActivity implements ViewPager.OnPageCha
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (scanner != null){
+        if (scanner != null) {
             // 断开连接
             scanner.disconnect();
             scanner = null;
@@ -132,6 +134,7 @@ public class GalleryActivity extends BaseActivity implements ViewPager.OnPageCha
     public void onPageSelected(int position) {
         // 改变当前图片
         tvPager.setText((position + 1) + " / " + viewPager.getAdapter().getCount());
+        setSaveVisible(position);
     }
 
     @Override
@@ -140,17 +143,30 @@ public class GalleryActivity extends BaseActivity implements ViewPager.OnPageCha
     }
 
     /**
+     * 设置保存按钮显示隐藏状态
+     * @param position
+     */
+    private void setSaveVisible(int position) {
+        if (position <= 0 || images == null || position >= images.size()) {
+            tvSave.setVisibility(View.GONE);
+            return;
+        }
+        String url = images.get(position);
+        tvSave.setVisibility(needDownload && url != null && url.startsWith("http") ? View.VISIBLE : View.GONE);
+    }
+
+    /**
      * 保存图片到相册
      */
     private void saveImage() {
         int currentItem = viewPager.getCurrentItem();
-        if (currentItem < 0 || images == null || currentItem >= images.size()){
+        if (currentItem < 0 || images == null || currentItem >= images.size()) {
             toast("没有可下载的图片");
             return;
         }
         showLoading();
         String url = images.get(currentItem);
-        FileUtil.simpleDownloadFile(this, url, FileUtil.getPhotoRoot(),   System.currentTimeMillis() + ".jpg", new FileUtil.FileDownloadCallBack() {
+        FileUtil.simpleDownloadFile(this, url, FileUtil.getPhotoRoot(), System.currentTimeMillis() + ".jpg", new FileUtil.FileDownloadCallBack() {
             @Override
             public void failed(String message) {
                 toast(message);
@@ -159,7 +175,7 @@ public class GalleryActivity extends BaseActivity implements ViewPager.OnPageCha
 
             @Override
             public void success(@NonNull File file) {
-                if (scanner != null){
+                if (scanner != null) {
                     scanner.scanFile(file.getPath(), "image/jpeg");
                 }
                 dismissLoading();
@@ -183,7 +199,7 @@ public class GalleryActivity extends BaseActivity implements ViewPager.OnPageCha
      * 隐藏loading弹框
      */
     private void dismissLoading() {
-        if (dialog != null){
+        if (dialog != null) {
             dialog.dismiss();
             dialog = null;
         }

@@ -231,6 +231,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     @Override
+    public void setLeftIcon(int icon) {
+        titleBarHelper.setLeftIcon(icon);
+    }
+
+    @Override
     public void addRightActions(TitleBar.ActionList actionList) {
         titleBarHelper.addRightActions(actionList);
     }
