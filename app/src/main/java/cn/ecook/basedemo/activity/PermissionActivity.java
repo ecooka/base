@@ -68,7 +68,7 @@ public class PermissionActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        setBaseTitle("权限申请例子");
     }
 
     /**

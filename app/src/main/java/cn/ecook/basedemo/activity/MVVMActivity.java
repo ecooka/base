@@ -45,6 +45,6 @@ public class MVVMActivity extends BaseActivity<BaseViewModel> {
 
     @Override
     public void initData() {
-
+        setBaseTitle("MVVM模式使用");
     }
 }

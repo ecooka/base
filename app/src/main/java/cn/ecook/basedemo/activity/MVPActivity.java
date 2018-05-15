@@ -50,7 +50,7 @@ public class MVPActivity extends BaseActivity<BasePresenter> implements MVPView 
 
     @Override
     public void initData() {
-
+        setBaseTitle("MVP模式使用");
     }
 
     @Override
