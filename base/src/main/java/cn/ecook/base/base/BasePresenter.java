@@ -22,13 +22,17 @@ import cn.ecook.base.util.ToastUtil;
 
 public abstract class BasePresenter {
     private final IBaseView baseView;
+    private ITitleBarUi iTitleBarUi;
+    private IStatusUi iStatusUi;
     protected final Context context;
-    protected ITitleBarUi iTitleBar;
-    protected IStatusUi iStatusUi;
 
     public BasePresenter(@NonNull Context context, IBaseView baseView) {
         this.context = context;
         this.baseView = baseView;
+    }
+
+    public void toast(String msg){
+        ToastUtil.toast(context, msg);
     }
 
     public <T extends Context> T getContext() {
@@ -57,21 +61,23 @@ public abstract class BasePresenter {
      * @param iTitleBarUi
      */
     public void setITitleBarUi(ITitleBarUi iTitleBarUi){
-        this.iTitleBar = iTitleBar;
+        this.iTitleBarUi = this.iTitleBarUi;
     }
 
-    public void onResume() { }
+    /**
+     * 获取TitleBar操作接口，BaseActivity的子类均不为空
+     * @return
+     */
+    public ITitleBarUi getITitleBarUi() {
+        return iTitleBarUi;
+    }
 
-    public void onStart() { }
-
-    public void onPause() { }
-
-    public void onStop() { }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) { }
-
-    public void onDestroy() {
-        HttpUtil.clearDisposable(context);
+    /**
+     * 获取多状态操作接口，BaseStatusActivity的子类或BaseStatusFragment的子类不为空
+     * @return
+     */
+    public IStatusUi getIStatusUi() {
+        return iStatusUi;
     }
 
     /**
@@ -86,8 +92,18 @@ public abstract class BasePresenter {
         return null;
     }
 
-    public void toast(String msg){
-        ToastUtil.toast(context, msg);
+    public void onResume() { }
+
+    public void onStart() { }
+
+    public void onPause() { }
+
+    public void onStop() { }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) { }
+
+    public void onDestroy() {
+        HttpUtil.clearDisposable(context);
     }
 
     /**

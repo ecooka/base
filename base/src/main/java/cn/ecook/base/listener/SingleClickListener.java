@@ -21,12 +21,15 @@ public abstract class SingleClickListener implements View.OnClickListener {
         int id = view.getId();
         if (preId != id) {
             preId = id;
-            preTime = millis;
-            onSingleClick(view);
+            click(view, millis);
         } else if (millis - preTime > DUR_TIME) {
-            preTime = millis;
-            onSingleClick(view);
+            click(view, millis);
         }
+    }
+
+    private void click(View view, long millis) {
+        preTime = millis;
+        onSingleClick(view);
     }
 
     /**
