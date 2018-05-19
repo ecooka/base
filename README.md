@@ -27,17 +27,23 @@
 
 * Step3
 
-  Base中已经集成了以下第三方库，注意防止冲突，(新增了两个第三方优秀库)
+  Base中已经集成了以下第三方库，注意防止冲突，其中 cn.ecook:http:0.0.1 是基于OKGO二次封装的。
 
-  ![Base中已经集成的第三方库](https://github.com/ecooka/base/blob/master/screenshot/base%20%E9%9B%86%E6%88%90%E7%9A%84%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93.png)
+  > [cn.ecook:http:0.0.1](https://github.com/ecooka/Http)
+  >
+  > [com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'](https://github.com/tbruyelle/RxPermissions)
+  >
+  > [com.github.bumptech.glide:glide:4.2.0'](https://github.com/bumptech/glide)
+  >
+  > [com.github.chrisbanes:PhotoView:2.0.0](https://github.com/chrisbanes/PhotoView)
+  >
+  > [com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
+  >
+  > [com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5](https://github.com/scwang90/SmartRefreshLayout)
+  >
+  > [com.jude:swipebackhelper:3.1.2](https://github.com/Jude95/SwipeBackHelper)
 
-  > ```
-  > com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5
-  > ```
-
-  > ```
-  > com.jude:swipebackhelper:3.1.2
-  > ```
+  ​
 
 * Step4 : Base的正确使用
 
@@ -68,20 +74,20 @@
     > [多状态控件基于此控件稍作修改](https://github.com/qyxxjd/MultipleStatusView)
 
 
-    
-    
+
+​    
     使用和BaseActivity和BaseFragment一样，只是继承BaseStatusActivity和BaseStatusFragment
     
     > [BaseStatusActivity的使用](https://github.com/ecooka/base/tree/master/app/src/main/java/cn/ecook/basedemo/activity/StatusActivity.java)
-    
-    
-    
+
+
+​    
     当然，可以使用BaseConfig设置全局的不同状态展示
     
     > [BaseConfig的相关配置](https://github.com/ecooka/base/tree/master/app/src/main/java/cn/ecook/basedemo/MyApplication.java)
-    
-    
-    
+
+
+​    
     在BasePresenter或BaseViewModel的实现类中如何切换状态和更新TitleBar
     
     ```java
@@ -114,8 +120,8 @@
     > [TitleBar操作接口](https://github.com/ecooka/base/blob/master/base/src/main/java/cn/ecook/base/base/ui/ITitleBarUi.java)
     >
     > [多状态布局操作接口](https://github.com/ecooka/base/blob/master/base/src/main/java/cn/ecook/base/base/ui/IStatusUi.java)
-    
-    
+
+​    
 
 * Step5 ：权限，通用功能，网络访问
 
