@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 
 import cn.ecook.base.base.BaseViewModel;
 import cn.ecook.base.base.ui.BaseActivity;
+import cn.ecook.base.base.ui.BaseStatusActivity;
 import cn.ecook.basedemo.R;
 import cn.ecook.basedemo.viewmodel.MVVMViewModel;
 
@@ -16,7 +17,7 @@ import cn.ecook.basedemo.viewmodel.MVVMViewModel;
  * @description 使用和MV基本一致，指定泛型为BaseViewModel
  */
 
-public class MVVMActivity extends BaseActivity<BaseViewModel> {
+public class MVVMActivity extends BaseStatusActivity<BaseViewModel> {
     public static void jumpHere(Context context) {
         context.startActivity(new Intent(context, MVVMActivity.class));
     }

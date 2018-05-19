@@ -2,7 +2,11 @@ package cn.ecook.basedemo.viewmodel;
 
 import android.content.Context;
 import android.databinding.ObservableField;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import cn.ecook.base.base.BaseViewModel;
 import cn.ecook.basedemo.databinding.ActivityMvvmBinding;

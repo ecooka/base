@@ -1,9 +1,10 @@
-package cn.ecook.base.http;
+package cn.ecook.base.listener;
 
 import android.app.Activity;
-import android.content.Context;
 import java.lang.ref.WeakReference;
+
 import cn.ecook.base.widget.dialog.EcookLoadingDialog;
+import cn.ecook.http.HttpCallBack;
 
 /**
  * 无需关心网络访问UI变化的回调（自带loading状态）

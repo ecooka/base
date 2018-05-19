@@ -9,10 +9,7 @@
 
     <declare-styleable name="ImageView">
         <attr name="imageUrl" />
-        <attr name="noCrop" />
         <attr name="imageRes" />
-        <attr name="placeHolder" />
-        <attr name="errorHolder" />
     </declare-styleable>
 
     <declare-styleable name="RecyclerView">

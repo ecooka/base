@@ -8,10 +8,15 @@
             type="cn.ecook.basedemo.viewmodel.MVVMViewModel" />
     </data>
 
-    <TextView
-        android:id="@+id/tvHelloWorld"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@{mvvm.helloWorld}" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvHelloWorld"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@{mvvm.helloWorld}" />
+    </RelativeLayout>
 </layout>

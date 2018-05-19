@@ -10,8 +10,8 @@ import java.lang.ref.WeakReference;
 import cn.ecook.base.base.ui.BaseActivity;
 import cn.ecook.base.base.ui.IStatusUi;
 import cn.ecook.base.base.ui.ITitleBarUi;
-import cn.ecook.base.http.HttpUtil;
 import cn.ecook.base.util.ToastUtil;
+import cn.ecook.http.HttpUtil;
 
 /**
  * 业务基类

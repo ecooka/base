@@ -5,9 +5,10 @@ import android.support.annotation.NonNull;
 
 import cn.ecook.base.base.BasePresenter;
 import cn.ecook.base.base.IBaseView;
-import cn.ecook.base.http.HttpCallBack;
-import cn.ecook.base.http.HttpUtil;
+import cn.ecook.basedemo.entity.Football;
 import cn.ecook.basedemo.view.MVPView;
+import cn.ecook.http.HttpCallBack;
+import cn.ecook.http.HttpUtil;
 
 /**
  * @author ciba
@@ -35,19 +36,20 @@ public class MVPStatusPresent extends BasePresenter {
 
     @Override
     public void initBizData() {
-        iStatusUi.showLoading();
+        getIStatusUi().showLoading();
         // 初始化业务数据，诸如调用接口之类的
+        // 泛型传入String直接返回原json数据
         HttpUtil.obGet("http://op.juhe.cn/onebox/football/league?key=bbdf40a269d0f08936ddb07b076be559&league=%E6%B3%95%E7%94%B2"
-                , null, new HttpCallBack<String>(context) {
+                , null, new HttpCallBack<Football>(context) {
                     @Override
-                    public void onSuccess(String s) {
-                        iStatusUi.dismissLoading();
-                        mvpView.loadFinish(s);
+                    public void onSuccess(Football football) {
+                        getIStatusUi().dismissLoading();
+                        mvpView.loadFinish(football.getReason());
                     }
 
                     @Override
                     public void onError(int code, String msg) {
-                        iStatusUi.dismissLoading(true, code);
+                        getIStatusUi().dismissLoading(true, code);
                     }
                 });
     }

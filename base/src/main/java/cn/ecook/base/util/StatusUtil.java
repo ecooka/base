@@ -1,8 +1,8 @@
 package cn.ecook.base.util;
 
 import android.support.annotation.LayoutRes;
-import cn.ecook.base.http.HttpCode;
 import cn.ecook.base.widget.MultipleStatusView;
+import cn.ecook.http.HttpCode;
 
 /**
  *
