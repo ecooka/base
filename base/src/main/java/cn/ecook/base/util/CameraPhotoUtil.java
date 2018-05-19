@@ -9,15 +9,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
-import android.view.View;
 
 import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
-import cn.ecook.base.permissions.PermissionNameUtil;
+import cn.ecook.base.base.BaseConfig;
 import cn.ecook.base.permissions.PermissionUtil;
-import cn.ecook.base.widget.dialog.PermissionDialog;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -39,9 +37,8 @@ public class CameraPhotoUtil {
     /**
      * 打开系统相机拍照
      * @param activity
-     * @param authority ：7.0FileProvider权限
      */
-    public static void openCamera(final Activity activity, final String authority) {
+    public static void openCamera(final Activity activity) {
 
         if (activity == null || activity.isDestroyed()) {
             // 如果Activity为空或者Activity已经销毁
@@ -59,16 +56,7 @@ public class CameraPhotoUtil {
                     } else if (!refusePermissions.isEmpty()){
                         permission = refusePermissions.get(0);
                     }
-                    final PermissionDialog dialog = new PermissionDialog(activity);
-                    dialog.setTitle("需要手动申请【" + PermissionNameUtil.getPermissionName(permission) + "】权限");
-                    dialog.setDefiniteClick(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                            PermissionUtil.toSetting(activity);
-                        }
-                    });
-                    dialog.show();
+                    PermissionUtil.showSettingDialog(activity, permission);
                     return;
                 }
                 File takePhotoFile = new File(FileUtil.getSDRoot(), UUID.randomUUID() + ".jpg");
@@ -76,7 +64,7 @@ public class CameraPhotoUtil {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 Uri uri;
                 if (Build.VERSION.SDK_INT >= VERSION24) {
-                    uri = FileProvider.getUriForFile(activity, authority, takePhotoFile);
+                    uri = FileProvider.getUriForFile(activity, BaseConfig.FILE_PROVIDER, takePhotoFile);
                 } else {
                     uri = Uri.fromFile(takePhotoFile);
                 }

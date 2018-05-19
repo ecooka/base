@@ -24,7 +24,6 @@ import cn.ecook.base.util.CameraPhotoUtil;
 
 public class CameraPhotoDialog extends Dialog {
     private final Activity activity;
-    private final String authority;
     private TextView tvGallery;
     private TextView tvCamera;
     private TextView tvCancel;
@@ -44,12 +43,10 @@ public class CameraPhotoDialog extends Dialog {
 
     /**
      * @param context
-     * @param authority ：
      */
-    public CameraPhotoDialog(@NonNull Activity context, String authority) {
+    public CameraPhotoDialog(@NonNull Activity context) {
         super(context, R.style.common_dialog);
         this.activity = context;
-        this.authority = authority;
         setContentView(R.layout.dialog_default_photo_camera);
         tvGallery = findViewById(R.id.tvGallery);
         tvCamera = findViewById(R.id.tvCamera);
@@ -71,7 +68,7 @@ public class CameraPhotoDialog extends Dialog {
     }
 
     private void camera() {
-        CameraPhotoUtil.openCamera(activity, authority);
+        CameraPhotoUtil.openCamera(activity);
     }
 
     private void choosePhoto() {

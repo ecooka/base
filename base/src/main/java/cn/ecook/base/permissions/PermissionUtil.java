@@ -22,6 +22,9 @@ import io.reactivex.functions.Consumer;
  */
 
 public class PermissionUtil {
+    private static final String APPLICATION_DETAILS_SETTINGS = "android.settings.APPLICATION_DETAILS_SETTINGS";
+    private static final int LEVEL8 = 8;
+    private static final int LEVEL9 = 9;
     private static int index = 0;
 
     private PermissionUtil() {
@@ -51,8 +54,9 @@ public class PermissionUtil {
                     @Override
                     public void accept(Boolean aBoolean) throws Exception {
                         if (aBoolean) {
-                            if (grantedListener != null)
+                            if (grantedListener != null){
                                 grantedListener.granted();
+                            }
                         } else {
                             if (refuseListener != null) {
                                 refuseListener.refuse();
@@ -98,8 +102,11 @@ public class PermissionUtil {
     }
 
     public static void showSettingDialog(final Activity activity, String permission) {
+        if (activity == null || activity.isDestroyed()){
+            return;
+        }
         final PermissionDialog dialog = new PermissionDialog(activity);
-        dialog.setTitle("权限申请");
+        dialog.setTitle("权限申请提示");
         dialog.setContent("需要手动申请【" + PermissionNameUtil.getPermissionName(permission) + "】权限");
         dialog.setDefiniteClick(new View.OnClickListener() {
             @Override
@@ -116,10 +123,10 @@ public class PermissionUtil {
      */
     public static void toSetting(Activity activity) {
         Intent intent = new Intent();
-        if (Build.VERSION.SDK_INT >= 9) {
-            intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+        if (Build.VERSION.SDK_INT >= LEVEL9) {
+            intent.setAction(APPLICATION_DETAILS_SETTINGS);
             intent.setData(Uri.fromParts("package", activity.getPackageName(), null));
-        } else if (Build.VERSION.SDK_INT <= 8) {
+        } else if (Build.VERSION.SDK_INT <= LEVEL8) {
             intent.setAction(Intent.ACTION_VIEW);
             intent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
             intent.putExtra("com.android.settings.ApplicationPkgName", activity.getPackageName());

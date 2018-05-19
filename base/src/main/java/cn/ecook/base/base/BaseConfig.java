@@ -9,6 +9,7 @@ import android.support.annotation.LayoutRes;
  * @description 全局数据配置
  */
 public class BaseConfig {
+    public static final String FILE_PROVIDER = "cn.ecook.fileprovider";
     public static boolean DEBUG = true;
     public static int DEFAULT_GO_BACK = 0;
     public static int DEFAULT_LOADING_STATUS_RES = 0;

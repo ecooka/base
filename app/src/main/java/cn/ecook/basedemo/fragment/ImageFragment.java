@@ -2,14 +2,11 @@ package cn.ecook.basedemo.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.ImageView;
 
 import cn.ecook.base.base.BasePresenter;
 import cn.ecook.base.base.ui.BaseFragment;
-import cn.ecook.base.listener.SingleClickListener;
 import cn.ecook.base.util.GlideUtil;
-import cn.ecook.base.widget.dialog.CameraPhotoDialog;
 import cn.ecook.basedemo.R;
 
 /**
@@ -42,13 +39,6 @@ public class ImageFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-        ivImage.setOnClickListener(new SingleClickListener() {
-            @Override
-            public void onSingleClick(View view) {
-                CameraPhotoDialog dialog = new CameraPhotoDialog(activity, "");
-                dialog.show();
-            }
-        });
     }
 
     @Override

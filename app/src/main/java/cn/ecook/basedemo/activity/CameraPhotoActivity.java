@@ -28,7 +28,6 @@ public class CameraPhotoActivity extends BaseStatusActivity {
     /**
      * 需替换成自己应用的fileprovider
      */
-    private static final String AUTHORITIES = "cn.ecook.basedemo.fileprovider";
     private ImageView ivImage;
     private SingleClickListener clickListener = new SingleClickListener() {
         @Override
@@ -102,11 +101,11 @@ public class CameraPhotoActivity extends BaseStatusActivity {
     }
 
     private void showCameraPhotoDialog() {
-        new CameraPhotoDialog(this, AUTHORITIES).show();
+        new CameraPhotoDialog(this).show();
     }
 
     private void openCamera() {
-        CameraPhotoUtil.openCamera(this, AUTHORITIES);
+        CameraPhotoUtil.openCamera(this);
     }
 
     private void openGallery() {
