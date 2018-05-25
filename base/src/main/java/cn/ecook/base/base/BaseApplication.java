@@ -15,12 +15,10 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         initKLog();
     }
 
     private void initKLog() {
         KLog.init(BaseConfig.DEBUG);
     }
-
 }

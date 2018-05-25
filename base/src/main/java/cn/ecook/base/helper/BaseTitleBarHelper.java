@@ -151,6 +151,9 @@ public class BaseTitleBarHelper {
      * 获取getDecorView
      */
     public FrameLayout getDecorFrameLayout() {
+        if (activity == null){
+            return null;
+        }
         Window window = activity.getWindow();
         if (window == null) {
             return null;

@@ -29,21 +29,46 @@ public class GlideUtil {
     private static final Map<String, String> fragmentImageList = new ConcurrentHashMap<>();
     private static final int[] RES = {R.color.default_green, R.color.default_pink
             , R.color.default_purple, R.color.default_red};
+    private static final Random random = new Random();
 
-    public static void displayLow(Context context, Object uri, ImageView imageView) {
-        display(context, uri, imageView, false, Priority.LOW);
-    }
+    public static final RequestOptions normalOptions = new RequestOptions()
+            .dontAnimate()
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+
+    public static final RequestOptions noPlaceErrorOptions = new RequestOptions()
+            .dontAnimate()
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+
+    public static final RequestOptions noPlaceErrorCacheOptions = new RequestOptions()
+            .dontAnimate()
+            .skipMemoryCache(true)
+            .diskCacheStrategy(DiskCacheStrategy.NONE);
+
+    private static DrawableTransitionOptions crossFade = new DrawableTransitionOptions().crossFade();
+    private static DrawableTransitionOptions dontTransition = new DrawableTransitionOptions().dontTransition();
+
 
     public static void display(Context context, Object uri, ImageView imageView) {
-        display(context, uri, imageView, false, Priority.NORMAL);
+        display(context, uri, imageView, true);
     }
 
-    public static void displayHigh(Context context, Object uri, ImageView imageView) {
-        display(context, uri, imageView, false, Priority.HIGH);
+    public static void displayNoTransition(Context context, Object uri, ImageView imageView) {
+        display(context, uri, imageView, false);
     }
 
-    public static void display(Context context, Object uri, ImageView imageView, boolean skipDiskCache, Priority priority) {
-        display(context, uri, imageView, createOption(skipDiskCache, priority), true);
+    private static void display(Context context, Object uri, ImageView imageView, boolean transition) {
+        int randomRes = getRandomRes();
+        normalOptions.placeholder(randomRes);
+        normalOptions.error(randomRes);
+        display(context, uri, imageView, normalOptions, transition);
+    }
+
+    public static void display(Context context, Object uri, ImageView imageView, RequestOptions requestOptions) {
+        display(context, uri, imageView, requestOptions, true);
+    }
+
+    public static void displayNoTransition(Context context, Object uri, ImageView imageView, RequestOptions requestOptions) {
+        display(context, uri, imageView, requestOptions, false);
     }
 
     public static void display(Context context, Object uri, ImageView imageView, RequestOptions requestOptions, boolean transition) {
@@ -63,8 +88,8 @@ public class GlideUtil {
         if (canDisplay(context, imageView)) {
             Glide.with(context)
                     .load(uri)
-                    .apply(requestOptions == null ? createOption(false, Priority.NORMAL) : requestOptions)
-                    .transition(transition ? new DrawableTransitionOptions().crossFade() : new DrawableTransitionOptions().dontTransition())
+                    .apply(requestOptions == null ? normalOptions : requestOptions)
+                    .transition(transition ? crossFade : dontTransition)
                     .listener(listener)
                     .into(imageView);
         }
@@ -74,7 +99,7 @@ public class GlideUtil {
      * @return ：随机获取图片
      */
     public static int getRandomRes() {
-        return RES[new Random().nextInt(RES.length)];
+        return RES[random.nextInt(RES.length)];
     }
 
     /**
@@ -90,23 +115,6 @@ public class GlideUtil {
             return false;
         }
         return true;
-    }
-
-    /**
-     * 创建默认的配置信息
-     *
-     * @param skipDiskCache ：是否跳过sd卡缓存
-     * @return
-     */
-    public static RequestOptions createOption(boolean skipDiskCache, Priority priority) {
-        int randomRes = getRandomRes();
-        RequestOptions options = new RequestOptions()
-                .dontAnimate()
-                .priority(priority == null ? Priority.NORMAL : priority)
-                .placeholder(randomRes)
-                .error(randomRes)
-                .diskCacheStrategy(skipDiskCache ? DiskCacheStrategy.NONE : DiskCacheStrategy.RESOURCE);
-        return options;
     }
 
     /**

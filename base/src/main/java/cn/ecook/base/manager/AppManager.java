@@ -1,6 +1,9 @@
 package cn.ecook.base.manager;
 
 import android.app.Activity;
+import android.content.Intent;
+
+import com.socks.library.KLog;
 
 import java.lang.ref.WeakReference;
 import java.util.Stack;
@@ -10,7 +13,7 @@ import java.util.Stack;
  * @author ciba
  */
 public class AppManager {
-
+    private static final String TAG = "AppManager";
     private Stack<WeakReference<Activity>> activityStack = new Stack<>();
     private static AppManager instance;
 

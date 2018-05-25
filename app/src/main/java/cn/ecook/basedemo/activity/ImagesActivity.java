@@ -1,5 +1,6 @@
 package cn.ecook.basedemo.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import cn.ecook.base.base.BasePresenter;
 import cn.ecook.base.base.ui.BaseActivity;
+import cn.ecook.base.permissions.PermissionUtil;
 import cn.ecook.basedemo.R;
 import cn.ecook.basedemo.adapter.ImageAdapter;
 import cn.ecook.base.widget.MySmartRefreshLayout;
@@ -83,8 +85,12 @@ public class ImagesActivity extends BaseActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(ImagesActivity.this, 2));
         imageAdapter = new ImageAdapter(ImagesActivity.this);
         recyclerView.setAdapter(imageAdapter);
-
-        refreshLayout.autoRefresh();
+        PermissionUtil.requestPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE, new PermissionUtil.GrantedListener() {
+            @Override
+            public void granted() {
+                refreshLayout.autoRefresh();
+            }
+        });
     }
 
     @Override

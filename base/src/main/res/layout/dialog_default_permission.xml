@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:padding="17dp"
     android:background="#fff"
-    android:layout_height="match_parent">
+    android:elevation="2dp"
+    android:layout_height="wrap_content">
     <TextView
         android:id="@+id/tvTitle"
         android:textSize="17sp"
         android:textColor="#222222"
         android:text="标题"
+        android:layout_marginTop="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
         android:lineSpacingExtra="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -16,6 +19,8 @@
     <TextView
         android:id="@+id/tvContent"
         android:layout_marginTop="14dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
         android:textSize="14sp"
         android:layout_below="@+id/tvTitle"
         android:textColor="#666666"
@@ -26,7 +31,7 @@
 
     <TextView
         android:id="@+id/tvDefinite"
-        android:layout_marginTop="14dp"
+        android:padding="17dp"
         android:textSize="12sp"
         android:layout_below="@+id/tvContent"
         android:textColor="#41cec7"
@@ -37,11 +42,11 @@
 
     <TextView
         android:id="@+id/tvCancel"
-        android:layout_marginTop="14dp"
         android:textSize="12sp"
+        android:padding="17dp"
         android:layout_below="@+id/tvContent"
         android:layout_toLeftOf="@+id/tvDefinite"
-        android:layout_marginRight="32dp"
+        android:layout_marginRight="20dp"
         android:textColor="#666"
         android:text="取消"
         android:layout_width="wrap_content"

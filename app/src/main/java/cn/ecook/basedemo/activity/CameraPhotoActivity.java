@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -59,6 +60,7 @@ public class CameraPhotoActivity extends BaseStatusActivity {
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
+        Log.e("TAG", "initView: " + savedInstanceState );
         ivImage = (ImageView) findViewById(R.id.ivImage);
     }
 
@@ -77,6 +79,12 @@ public class CameraPhotoActivity extends BaseStatusActivity {
     @Override
     public void initData() {
         setBaseTitle("CameraPhoto");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.e("TAG", "onSaveInstanceState: " );
     }
 
     @Override

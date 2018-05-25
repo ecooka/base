@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import cn.ecook.base.base.BasePresenter;
 import cn.ecook.base.base.IBaseView;
 import cn.ecook.base.base.ui.BaseActivity;
+import cn.ecook.base.util.GlideUtil;
 import cn.ecook.basedemo.R;
 import cn.ecook.basedemo.presenter.MVPPresent;
 import cn.ecook.basedemo.view.MVPView;
@@ -21,6 +23,7 @@ import cn.ecook.basedemo.view.MVPView;
 
 public class MVPActivity extends BaseActivity<BasePresenter> implements MVPView {
     private TextView tvContent;
+    private ImageView ivImage;
 
     public static void jumpHere(Context context) {
         context.startActivity(new Intent(context, MVPActivity.class));
@@ -34,6 +37,7 @@ public class MVPActivity extends BaseActivity<BasePresenter> implements MVPView 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
         tvContent = (TextView) findViewById(R.id.tvContent);
+        ivImage = (ImageView) findViewById(R.id.ivImage);
     }
 
     @Override
@@ -51,6 +55,8 @@ public class MVPActivity extends BaseActivity<BasePresenter> implements MVPView 
     @Override
     public void initData() {
         setBaseTitle("MVP模式使用");
+
+        GlideUtil.display(this, R.drawable.vip_banner_yellow_bg, ivImage, GlideUtil.noPlaceErrorCacheOptions);
     }
 
     @Override

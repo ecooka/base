@@ -1,5 +1,7 @@
 package cn.ecook.basedemo;
 
+import com.socks.library.KLog;
+
 import cn.ecook.base.base.BaseApplication;
 import cn.ecook.base.base.BaseConfig;
 
@@ -13,6 +15,7 @@ public class MyApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        KLog.e("TAG", "MyApplication");
         // 设置debug状态
         BaseConfig.init(true);
         // 设置全局的多状态样式，不设置使用默认样式

@@ -15,6 +15,7 @@ public class BaseConfig {
     public static int DEFAULT_LOADING_STATUS_RES = 0;
     public static int DEFAULT_EMPTY_STATUS_RES = 0;
     public static int DEFAULT_NETWORK_ERROR_STATUS_RES = 0;
+    public static float DESIGN_WIDTH = 375f;
 
     private BaseConfig() {
 
@@ -46,5 +47,9 @@ public class BaseConfig {
         DEFAULT_LOADING_STATUS_RES = defaultLoadingStatusRes;
         DEFAULT_EMPTY_STATUS_RES = defaultEmptyStatusRes;
         DEFAULT_NETWORK_ERROR_STATUS_RES = defaultNetworkErrorStatusRes;
+    }
+
+    public static void initDesignWidth(float designWidth){
+        DESIGN_WIDTH = designWidth <= 0 ? 375f : designWidth;
     }
 }

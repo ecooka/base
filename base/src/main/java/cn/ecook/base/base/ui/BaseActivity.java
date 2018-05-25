@@ -28,6 +28,7 @@ import cn.ecook.base.base.BaseViewModel;
 import cn.ecook.base.listener.SingleClickListener;
 import cn.ecook.base.manager.AppManager;
 import cn.ecook.base.helper.BaseTitleBarHelper;
+import cn.ecook.base.util.DisplayUtil;
 import cn.ecook.base.util.ToastUtil;
 import cn.ecook.base.widget.TitleBar;
 
@@ -49,6 +50,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DisplayUtil.setCustomDensity(this);
+
         KLog.e(TAG, "This activity is ... " + getClass().getSimpleName());
         // 软引用Activity上下文
         activityWeakReference = new WeakReference<Activity>(this);
@@ -157,9 +161,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             basePresenter.onDestroy();
             basePresenter = null;
         }
-        if (titleBarHelper != null){
+        if (titleBarHelper != null) {
             FrameLayout decorFrameLayout = titleBarHelper.getDecorFrameLayout();
-            if (decorFrameLayout != null){
+            if (decorFrameLayout != null) {
                 decorFrameLayout.removeAllViews();
             }
             titleBarHelper = null;
@@ -312,5 +316,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      */
     public TitleBar getBaseTitleBar() {
         return titleBarHelper.getTitleBar();
+    }
+
+    /**
+     * @return ：是否自己来处理onSaveInstanceStateBySelf
+     */
+    public boolean onSaveInstanceStateBySelf() {
+        return false;
     }
 }
