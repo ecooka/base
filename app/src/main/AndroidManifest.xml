@@ -50,6 +50,9 @@
         <activity
             android:name=".activity.StatusActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AppBarLayoutActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

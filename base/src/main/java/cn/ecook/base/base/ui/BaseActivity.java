@@ -317,11 +317,4 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     public TitleBar getBaseTitleBar() {
         return titleBarHelper.getTitleBar();
     }
-
-    /**
-     * @return ：是否自己来处理onSaveInstanceStateBySelf
-     */
-    public boolean onSaveInstanceStateBySelf() {
-        return false;
-    }
 }
