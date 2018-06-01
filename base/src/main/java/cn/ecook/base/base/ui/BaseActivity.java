@@ -210,11 +210,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     @Override
-    public View findViewById(int id) {
-        return contentView == null ? null : contentView.findViewById(id);
-    }
-
-    @Override
     public void setBaseTitleVisible(boolean visible) {
         titleBarHelper.setTitleVisible(visible);
     }
@@ -316,5 +311,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      */
     public TitleBar getBaseTitleBar() {
         return titleBarHelper.getTitleBar();
+    }
+
+    public View getContentView(){
+        return titleBarHelper == null ? null : titleBarHelper.getContentView();
     }
 }

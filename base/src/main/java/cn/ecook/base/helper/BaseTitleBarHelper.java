@@ -3,6 +3,7 @@ package cn.ecook.base.helper;
 import android.app.Activity;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ public class BaseTitleBarHelper {
     private final Activity activity;
     private final int dp48;
     private final View contentView;
-    private int statusBarHeight;
     private TitleBar titleBar;
 
     public BaseTitleBarHelper(@NonNull Activity activity, View contentView) {
@@ -35,11 +35,6 @@ public class BaseTitleBarHelper {
 
         // TitleBar 默认为48dp
         dp48 = DisplayUtil.dp2px(activity, 48);
-        // 获取状态栏高度，如果没有获取到则默认是24dp
-        statusBarHeight = TitleBar.getStatusBarHeight();
-        if (statusBarHeight <= 0) {
-            statusBarHeight = dp48 / 2;
-        }
     }
 
     /**
@@ -115,6 +110,10 @@ public class BaseTitleBarHelper {
         return titleBar;
     }
 
+    public View getContentView(){
+        return contentView;
+    }
+
     /**
      * 初始化TitleBar
      */
@@ -123,13 +122,16 @@ public class BaseTitleBarHelper {
             return;
         }
         FrameLayout decorFrameLayout = getDecorFrameLayout();
-        if (decorFrameLayout != null) {
+        FrameLayout contentLayout = null;
+        if (decorFrameLayout != null){
+            contentLayout = decorFrameLayout.findViewById(Window.ID_ANDROID_CONTENT);
+        }
+        if (contentLayout != null) {
             titleBar = (TitleBar) LayoutInflater.from(activity).inflate(R.layout.layout_base_title_bar, null, false);
             setLeftIcon(0 == BaseConfig.DEFAULT_GO_BACK ? R.drawable.titlebar_return_icon_black : BaseConfig.DEFAULT_GO_BACK);
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp48);
-            layoutParams.topMargin = statusBarHeight;
             titleBar.setLayoutParams(layoutParams);
-            decorFrameLayout.addView(titleBar);
+            contentLayout.addView(titleBar);
             changedContentMargin();
         }
     }
