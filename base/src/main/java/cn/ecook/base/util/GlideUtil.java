@@ -3,17 +3,12 @@ package cn.ecook.base.util;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
-
-import java.io.File;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,48 +26,28 @@ public class GlideUtil {
             , R.color.default_purple, R.color.default_red};
     private static final Random random = new Random();
 
-    public static final RequestOptions normalOptions = new RequestOptions()
+    private static final RequestOptions normalOptions = new RequestOptions()
             .dontAnimate()
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
 
-    public static final RequestOptions noPlaceErrorOptions = new RequestOptions()
-            .dontAnimate()
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
-
-    public static final RequestOptions noPlaceErrorCacheOptions = new RequestOptions()
+    private static final RequestOptions noPlaceErrorCacheOptions = new RequestOptions()
             .dontAnimate()
             .skipMemoryCache(true)
             .diskCacheStrategy(DiskCacheStrategy.NONE);
 
-    private static DrawableTransitionOptions crossFade = new DrawableTransitionOptions().crossFade();
-    private static DrawableTransitionOptions dontTransition = new DrawableTransitionOptions().dontTransition();
-
-
     public static void display(Context context, Object uri, ImageView imageView) {
-        display(context, uri, imageView, true);
-    }
-
-    public static void displayNoTransition(Context context, Object uri, ImageView imageView) {
-        display(context, uri, imageView, false);
-    }
-
-    private static void display(Context context, Object uri, ImageView imageView, boolean transition) {
         int randomRes = getRandomRes();
         normalOptions.placeholder(randomRes);
         normalOptions.error(randomRes);
-        display(context, uri, imageView, normalOptions, transition);
+        display(context, uri, imageView, normalOptions);
+    }
+
+    public static void displayNoPlaceErrorCache(Context context, Object uri, ImageView imageView) {
+        display(context, uri, imageView, noPlaceErrorCacheOptions, null);
     }
 
     public static void display(Context context, Object uri, ImageView imageView, RequestOptions requestOptions) {
-        display(context, uri, imageView, requestOptions, true);
-    }
-
-    public static void displayNoTransition(Context context, Object uri, ImageView imageView, RequestOptions requestOptions) {
-        display(context, uri, imageView, requestOptions, false);
-    }
-
-    public static void display(Context context, Object uri, ImageView imageView, RequestOptions requestOptions, boolean transition) {
-        display(context, uri, imageView, requestOptions, transition, null);
+        display(context, uri, imageView, requestOptions, null);
     }
 
     /**
@@ -83,13 +58,11 @@ public class GlideUtil {
      * @param imageView      ：加载控件
      * @param requestOptions ：请求配置
      */
-    public static void display(Context context, Object uri, ImageView imageView, RequestOptions requestOptions
-            , boolean transition, RequestListener<Drawable> listener) {
+    public static void display(Context context, Object uri, ImageView imageView, RequestOptions requestOptions, RequestListener<Drawable> listener) {
         if (canDisplay(context, imageView)) {
             Glide.with(context)
                     .load(uri)
                     .apply(requestOptions == null ? normalOptions : requestOptions)
-                    .transition(transition ? crossFade : dontTransition)
                     .listener(listener)
                     .into(imageView);
         }

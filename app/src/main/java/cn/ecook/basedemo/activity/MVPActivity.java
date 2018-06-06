@@ -56,7 +56,7 @@ public class MVPActivity extends BaseActivity<BasePresenter> implements MVPView 
     public void initData() {
         setBaseTitle("MVP模式使用");
 
-        GlideUtil.display(this, R.drawable.vip_banner_yellow_bg, ivImage, GlideUtil.noPlaceErrorCacheOptions);
+        GlideUtil.displayNoPlaceErrorCache(this, R.drawable.vip_banner_yellow_bg, ivImage);
     }
 
     @Override

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.LinkedList;
 
 import cn.ecook.base.R;
+import cn.ecook.base.util.DisplayUtil;
 
 /**
  * @author ：Bob
@@ -61,9 +62,9 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
         if (mImmersive) {
             mStatusBarHeight = getStatusBarHeight();
         }
-        mActionPadding = dip2px(5);
-        mOutPadding = dip2px(8);
-        mHeight = dip2px(DEFAULT_TITLE_BAR_HEIGHT);
+        mActionPadding = DisplayUtil.dp2px(getContext(), 12);
+        mOutPadding = DisplayUtil.dp2px(getContext(), 8);
+        mHeight = DisplayUtil.dp2px(getContext(), DEFAULT_TITLE_BAR_HEIGHT);
         initView(context);
     }
 
@@ -328,6 +329,10 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
         return view;
     }
 
+    public void setActionPadding(int padding){
+        mActionPadding = DisplayUtil.dp2px(getContext(), padding);
+    }
+
     public View getViewByAction(Action action) {
         View view = findViewWithTag(action);
         return view;
@@ -372,11 +377,6 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
                     mScreenWidth - mRightLayout.getMeasuredWidth(), getMeasuredHeight());
         }
         mDividerView.layout(0, getMeasuredHeight() - mDividerView.getMeasuredHeight(), getMeasuredWidth(), getMeasuredHeight());
-    }
-
-    public static int dip2px(int dpValue) {
-        final float scale = Resources.getSystem().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
     }
 
     /**

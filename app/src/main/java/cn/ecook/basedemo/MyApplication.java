@@ -17,7 +17,7 @@ public class MyApplication extends BaseApplication {
         super.onCreate();
         KLog.e("TAG", "MyApplication");
         // 设置debug状态
-        BaseConfig.init(true);
+        BaseConfig.init(getApplicationContext(), true);
         // 设置全局的多状态样式，不设置使用默认样式
         BaseConfig.initStatusRes(R.layout.status_default_loading, R.layout.status_default_empty, R.layout.status_default_no_network);
         // 设置全局默认返回按钮icon

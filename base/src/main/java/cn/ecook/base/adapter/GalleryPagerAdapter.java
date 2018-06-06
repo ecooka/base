@@ -53,7 +53,7 @@ public class GalleryPagerAdapter extends PagerAdapter {
         photoView.setZoomable(true);
         View loading = view.findViewById(R.id.loading);
 
-        GlideUtil.display(photoView.getContext(), imageUrl.get(position), photoView, options, true, new ImageLoadListener(loading));
+        GlideUtil.display(photoView.getContext(), imageUrl.get(position), photoView, options, new ImageLoadListener(loading));
         photoView.setOnClickListener(onClickListener);
         // Now just add PhotoView to ViewPager and return it
         container.addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);

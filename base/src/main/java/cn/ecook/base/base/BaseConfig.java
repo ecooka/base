@@ -1,5 +1,6 @@
 package cn.ecook.base.base;
 
+import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 
@@ -9,7 +10,7 @@ import android.support.annotation.LayoutRes;
  * @description 全局数据配置
  */
 public class BaseConfig {
-    public static final String FILE_PROVIDER = "cn.ecook.fileprovider";
+    public static String FILE_PROVIDER = "cn.ecook.fileprovider";
     public static boolean DEBUG = true;
     public static int DEFAULT_GO_BACK = 0;
     public static int DEFAULT_LOADING_STATUS_RES = 0;
@@ -25,7 +26,8 @@ public class BaseConfig {
      * 初始化debug状态
      * @param debug ：是否是debug
      */
-    public static void init(boolean debug) {
+    public static void init(Context context, boolean debug) {
+        FILE_PROVIDER = context.getPackageName() + ".ecookbase.fileprovider";
         DEBUG = debug;
     }
 

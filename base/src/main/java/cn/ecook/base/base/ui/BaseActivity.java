@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -315,5 +316,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     public View getContentView(){
         return titleBarHelper == null ? null : titleBarHelper.getContentView();
+    }
+
+    public void setTitleElevation(float elevation){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && titleBarHelper != null && titleBarHelper.getTitleBar() != null){
+            titleBarHelper.getTitleBar().setElevation(elevation);
+        }
     }
 }
