@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 
+import cn.ecook.base.util.DisplayUtil;
+
 /**
  * @author ciba
  * @date 2018/4/4
@@ -16,6 +18,7 @@ public class BaseConfig {
     public static int DEFAULT_LOADING_STATUS_RES = 0;
     public static int DEFAULT_EMPTY_STATUS_RES = 0;
     public static int DEFAULT_NETWORK_ERROR_STATUS_RES = 0;
+    public static int TITLE_BAR_ELEVATION = 0;
     public static float DESIGN_WIDTH = 375f;
 
     private BaseConfig() {
@@ -53,5 +56,9 @@ public class BaseConfig {
 
     public static void initDesignWidth(float designWidth){
         DESIGN_WIDTH = designWidth <= 0 ? 375f : designWidth;
+    }
+
+    public static void initTitleBarElevation(int elevation){
+        TITLE_BAR_ELEVATION = elevation;
     }
 }

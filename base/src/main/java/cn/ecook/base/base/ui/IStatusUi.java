@@ -19,7 +19,7 @@ public interface IStatusUi {
     void dismissLoading();
 
     /**
-     * 如果httpCode为{@link cn.ecook.base.http.HttpCode} EXCEPTION_TIME_OUT 或者 EXCEPTION_NO_CONNECT
+     * 如果httpCode为{@link cn.ecook.http.HttpCode} EXCEPTION_TIME_OUT 或者 EXCEPTION_NO_CONNECT
      * 切换为网络错误状态
      * 否则如果showEmpty为true切换为空视图状态
      * @param showEmpty ：是否展示空视图

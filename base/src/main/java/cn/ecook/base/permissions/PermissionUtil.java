@@ -12,6 +12,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.ecook.base.manager.AppManager;
 import cn.ecook.base.widget.dialog.PermissionDialog;
 import io.reactivex.functions.Consumer;
 
@@ -102,7 +103,7 @@ public class PermissionUtil {
     }
 
     public static void showSettingDialog(final Activity activity, String permission) {
-        if (activity == null || activity.isDestroyed()){
+        if (AppManager.getAppManager().activityIsFinish(activity)){
             return;
         }
         final PermissionDialog dialog = new PermissionDialog(activity);

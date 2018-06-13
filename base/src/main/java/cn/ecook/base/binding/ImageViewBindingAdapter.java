@@ -1,11 +1,7 @@
 package cn.ecook.base.binding;
 
 import android.databinding.BindingAdapter;
-import android.support.annotation.DrawableRes;
 import android.widget.ImageView;
-
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 
 import cn.ecook.base.util.GlideUtil;
 

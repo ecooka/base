@@ -14,6 +14,7 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 import cn.ecook.base.R;
+import cn.ecook.base.manager.AppManager;
 
 /**
  * @author ciba
@@ -26,10 +27,6 @@ public class GlideUtil {
             , R.color.default_purple, R.color.default_red};
     private static final Random random = new Random();
 
-    private static final RequestOptions normalOptions = new RequestOptions()
-            .dontAnimate()
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
-
     private static final RequestOptions noPlaceErrorCacheOptions = new RequestOptions()
             .dontAnimate()
             .skipMemoryCache(true)
@@ -37,9 +34,12 @@ public class GlideUtil {
 
     public static void display(Context context, Object uri, ImageView imageView) {
         int randomRes = getRandomRes();
-        normalOptions.placeholder(randomRes);
-        normalOptions.error(randomRes);
-        display(context, uri, imageView, normalOptions);
+        RequestOptions requestOptions = new RequestOptions()
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .placeholder(randomRes)
+                .error(randomRes);
+        display(context, uri, imageView, requestOptions);
     }
 
     public static void displayNoPlaceErrorCache(Context context, Object uri, ImageView imageView) {
@@ -62,7 +62,9 @@ public class GlideUtil {
         if (canDisplay(context, imageView)) {
             Glide.with(context)
                     .load(uri)
-                    .apply(requestOptions == null ? normalOptions : requestOptions)
+                    .apply(requestOptions == null ? new RequestOptions()
+                            .dontAnimate()
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE) : requestOptions)
                     .listener(listener)
                     .into(imageView);
         }
@@ -84,7 +86,7 @@ public class GlideUtil {
         if (imageView == null || context == null) {
             return false;
         }
-        if (context instanceof Activity && ((Activity) context).isDestroyed()) {
+        if (context instanceof Activity && AppManager.getAppManager().activityIsFinish((Activity) context)) {
             return false;
         }
         return true;

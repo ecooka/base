@@ -27,7 +27,6 @@ public class MultipleStatusView extends RelativeLayout {
     public static final int STATUS_EMPTY = 0x02;
     public static final int STATUS_ERROR = 0x03;
     public static final int STATUS_NO_NETWORK = 0x04;
-
     private static final int NULL_RESOURCE_ID = -1;
 
     private View mEmptyView;

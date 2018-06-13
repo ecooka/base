@@ -1,9 +1,10 @@
 package cn.ecook.base.manager;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-
-import com.socks.library.KLog;
+import android.net.Uri;
+import android.os.Build;
 
 import java.lang.ref.WeakReference;
 import java.util.Stack;
@@ -139,6 +140,31 @@ public class AppManager {
             if (null != activityWeakReference) {
                 finishActivity(activityWeakReference.get());
             }
+        }
+    }
+
+    /**
+     * 检查Activity是否已经结束
+     */
+    public boolean activityIsFinish(Activity activity){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return activity == null || activity.isDestroyed();
+        } else {
+            return activity == null || activity.isFinishing();
+        }
+    }
+
+    /**
+     * 跳转到应用商城详情页面
+     */
+    public void jump2AppShopDetail(Context context){
+        try {
+            Uri uri = Uri.parse("market://details?id=" + context.getPackageName());
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

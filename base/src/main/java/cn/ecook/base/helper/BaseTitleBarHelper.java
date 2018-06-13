@@ -1,9 +1,9 @@
 package cn.ecook.base.helper;
 
 import android.app.Activity;
+import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +32,7 @@ public class BaseTitleBarHelper {
     public BaseTitleBarHelper(@NonNull Activity activity, View contentView) {
         this.activity = activity;
         this.contentView = contentView;
-
+        contentView.setBackgroundColor(0xffffffff);
         // TitleBar 默认为48dp
         dp48 = DisplayUtil.dp2px(activity, 48);
     }
@@ -128,6 +128,9 @@ public class BaseTitleBarHelper {
         }
         if (contentLayout != null) {
             titleBar = (TitleBar) LayoutInflater.from(activity).inflate(R.layout.layout_base_title_bar, null, false);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                titleBar.setElevation(BaseConfig.TITLE_BAR_ELEVATION);
+            }
             setLeftIcon(0 == BaseConfig.DEFAULT_GO_BACK ? R.drawable.titlebar_return_icon_black : BaseConfig.DEFAULT_GO_BACK);
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp48);
             titleBar.setLayoutParams(layoutParams);

@@ -7,7 +7,6 @@ import cn.ecook.base.R;
 import cn.ecook.base.base.BaseConfig;
 import cn.ecook.base.base.BasePresenter;
 import cn.ecook.base.widget.MultipleStatusView;
-import cn.ecook.base.widget.TitleBar;
 import cn.ecook.base.util.StatusUtil;
 
 /**

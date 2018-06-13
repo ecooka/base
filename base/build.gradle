@@ -7,13 +7,11 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -42,7 +40,7 @@ publish {
     userOrg = 'ecookad'               // bintray注册的用户名
     groupId = 'cn.ecook'
     artifactId = 'base'                // bintray创建的package
-    publishVersion = '0.0.9'
+    publishVersion = '0.0.10'
 }
 
 dependencies {

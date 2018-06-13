@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 import cn.ecook.base.base.BaseConfig;
+import cn.ecook.base.manager.AppManager;
 import cn.ecook.base.permissions.PermissionUtil;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -40,7 +41,7 @@ public class CameraPhotoUtil {
      */
     public static void openCamera(final Activity activity) {
 
-        if (activity == null || activity.isDestroyed()) {
+        if (AppManager.getAppManager().activityIsFinish(activity)) {
             // 如果Activity为空或者Activity已经销毁
             return;
         }
@@ -87,7 +88,7 @@ public class CameraPhotoUtil {
      * @param activity
      */
     public static void openGallery(Activity activity) {
-        if (activity == null || activity.isDestroyed()) {
+        if (AppManager.getAppManager().activityIsFinish(activity)) {
             return;
         }
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
